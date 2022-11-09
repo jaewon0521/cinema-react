@@ -97,7 +97,7 @@ jobs:
               aws cloudfront create-invalidation --distribution-id ${DEV_DISTRIBUTION_ID} --paths /\*
             fi
 
-  workflows:D
+  workflows:
     build_and_deploy:
       jobs:
         - build

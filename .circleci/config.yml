@@ -139,6 +139,10 @@ jobs:
                     {
                       "type": "mrkdwn",
                       "text": "*Author*:\n$CIRCLE_PROJECT_USERNAME"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit*:\n$CIRCLE_SHA1"
                     }
                   ]
                 },

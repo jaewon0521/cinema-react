@@ -20,14 +20,6 @@ const SliderShow = (props: Props) => {
           <img src={SlideImage} alt="슬라이드이미지" />
         </div>
       </Carousel>
-      {/* <div css={sliderSlides}>
-        <div
-          className="slider-image"
-          style={{
-            backgroundImage: `url(${SlideImage})`,
-          }}
-        ></div>
-      </div> */}
     </div>
   );
 };
@@ -47,17 +39,6 @@ const slider = css`
       height: 100%;
       object-fit: cover;
     }
-  }
-`;
-
-const sliderSlides = css`
-  .slider-image {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 700px;
-    color: #fff;
-    text-align: center;
   }
 `;
 

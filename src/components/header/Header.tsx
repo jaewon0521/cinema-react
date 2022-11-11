@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import logo from "assets/cinema-logo.svg";
 import { css, keyframes } from "@emotion/react";
+import media from "lib/styles/media";
 
 type Props = {};
 
@@ -24,7 +25,7 @@ const Header = (props: Props) => {
           <span className="bar"></span>
           <span className="bar"></span>
         </div>
-        <ul css={headerNav}>
+        <ul css={headerNav(isActive)}>
           <li className="header-nav-item">Now Playing</li>
           <li className="header-nav-item">New Movies</li>
           <input type="text" css={searchInput} placeholder="Search for a movie" />
@@ -63,6 +64,19 @@ const headerBar = css`
 `;
 
 const headerNavBar = css`
+  ${media.small} {
+    li {
+      list-style: none;
+    }
+
+    li:first-child {
+      mask-type: 50px;
+    }
+    li .header-list-name {
+      font-size: 1rem;
+    }
+  }
+
   display: grid;
   grid-template: "link . . menu search";
   grid-template-columns: max-content 1fr 1fr max-content max-content;
@@ -84,6 +98,14 @@ const headerImage = css`
 `;
 
 const headerMenuToggle = (isActive: boolean) => css`
+  ${media.small} {
+    &,
+    .bar {
+      display: block;
+      cursor: pointer;
+      margin-top: 13px;
+    }
+  }
   grid-area: menu;
   justify-self: end;
   margin-right: 25px;
@@ -115,7 +137,27 @@ const headerMenuToggle = (isActive: boolean) => css`
   `}
 `;
 
-const headerNav = css`
+const headerNav = (isActive: boolean) => css`
+  ${media.small} {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 55px;
+    background-color: #fff;
+    width: 100%;
+    height: calc(100vh - 55px);
+    transform: translate(-101%);
+    text-align: justify;
+    overflow: hidden;
+    z-index: 10;
+
+    .header-nav-item {
+      .header-list-icon {
+        display: none;
+      }
+    }
+  }
+
   grid-area: menu;
   margin-right: 25px;
 
@@ -126,6 +168,13 @@ const headerNav = css`
     font-size: 14px;
     font-weight: bold;
 
+    .header-list-name {
+      font-size: 0.9rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.3s ease-out;
+    }
+
     .header-list-icon {
       padding-right: 5px;
     }
@@ -134,9 +183,16 @@ const headerNav = css`
       color: #3498db;
     }
   }
+  ${isActive &&
+  css`
+    transform: translate(0%) !important;
+  `}
 `;
 
 const searchInput = css`
+  ${media.small} {
+    mask-repeat: 15px;
+  }
   grid-area: search;
   margin-top: 10px;
   width: auto;

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import logo from "assets/cinema-logo.svg";
 import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
+import palette from "lib/palette";
+import { HEADER_LIST } from "lib/constants";
 
 type Props = {};
 
@@ -26,8 +28,14 @@ const Header = (props: Props) => {
           <span className="bar"></span>
         </div>
         <ul css={headerNav(isActive)}>
-          <li className="header-nav-item">Now Playing</li>
-          <li className="header-nav-item">New Movies</li>
+          {HEADER_LIST.map((data) => (
+            <li key={data.id} className="header-nav-item">
+              <span className="header-list-name">
+                <i className={data.iconClass}></i>
+              </span>{" "}
+              <span className="header-list-name">{data.name}</span>
+            </li>
+          ))}
           <input type="text" css={searchInput} placeholder="Search for a movie" />
         </ul>
       </div>
@@ -69,7 +77,7 @@ const headerNavBar = css`
       list-style: none;
     }
 
-    li:first-child {
+    li:first-of-type {
       mask-type: 50px;
     }
     li .header-list-name {
@@ -88,7 +96,7 @@ const headerNavBar = css`
 const headerImage = css`
   grid-area: link;
   width: 170px;
-  height: 170px;
+  /* height: 170px; */
   margin-left: 25px;
   margin-top: -5px;
 
@@ -118,20 +126,20 @@ const headerMenuToggle = (isActive: boolean) => css`
   .bar {
     width: 25px;
     height: 3px;
-    background-color: #3f3f3f;
+    background-color: ${palette.black[100]};
     margin: 5px auto;
     transition: all 0.3s ease-in-out;
   }
 
   ${isActive &&
   css`
-    .bar:nth-child(1) {
+    .bar:nth-of-type(1) {
       transform: translateY(8px) rotate(45deg);
     }
-    .bar:nth-child(2) {
+    .bar:nth-of-type(2) {
       opacity: 0;
     }
-    .bar:nth-child(3) {
+    .bar:nth-of-type(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
   `}
@@ -146,6 +154,8 @@ const headerNav = (isActive: boolean) => css`
     background-color: #fff;
     width: 100%;
     height: calc(100vh - 55px);
+    padding-right: 20px;
+    padding-top: 50px;
     transform: translate(-101%);
     text-align: justify;
     overflow: hidden;
@@ -180,7 +190,7 @@ const headerNav = (isActive: boolean) => css`
     }
 
     a:hover {
-      color: #3498db;
+      color: ${palette.blue[100]};
     }
   }
   ${isActive &&
@@ -196,16 +206,16 @@ const searchInput = css`
   grid-area: search;
   margin-top: 10px;
   width: auto;
-  border: 1px solid #9aa9bb;
+  border: 1px solid ${palette.grey[100]};
   padding: 5px;
   height: 36px;
   border-radius: 5px;
   outline: none;
-  color: #9dbfaf;
+  color: ${palette.grey[200]};
   line-height: 36px;
 
   &::placeholder {
-    color: #9aa9bb;
+    color: ${palette.grey[100]};
     font-size: 14px;
   }
 `;

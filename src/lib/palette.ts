@@ -9,6 +9,7 @@ export const grey = {
 
 export const black = {
   "100": "#3f3f3f",
+  "200": "#020e18",
 };
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */

@@ -9,6 +9,31 @@ import { HEADER_LIST } from "lib/constants";
 
 type Props = {};
 
+const ToggleMenuBar = () => {
+  return (
+    <>
+      <span className="bar"></span>
+      <span className="bar"></span>
+      <span className="bar"></span>
+    </>
+  );
+};
+
+const HeaderList = () => {
+  return (
+    <>
+      {HEADER_LIST.map((data) => (
+        <li key={data.id} className="header-nav-item">
+          <span className="header-list-name">
+            <i className={data.iconClass}></i>
+          </span>{" "}
+          <span className="header-list-name">{data.name}</span>
+        </li>
+      ))}
+    </>
+  );
+};
+
 const Header = (props: Props) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -23,19 +48,10 @@ const Header = (props: Props) => {
           <img src={logo} alt="로고" />
         </div>
         <div css={headerMenuToggle(isActive)} onClick={handleToggleMenuClick}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+          <ToggleMenuBar />
         </div>
         <ul css={headerNav(isActive)}>
-          {HEADER_LIST.map((data) => (
-            <li key={data.id} className="header-nav-item">
-              <span className="header-list-name">
-                <i className={data.iconClass}></i>
-              </span>{" "}
-              <span className="header-list-name">{data.name}</span>
-            </li>
-          ))}
+          <HeaderList />
           <input type="text" css={searchInput} placeholder="Search for a movie" />
         </ul>
       </div>

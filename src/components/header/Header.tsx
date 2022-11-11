@@ -8,6 +8,10 @@ type Props = {};
 
 const Header = (props: Props) => {
   const [isActive, setIsActive] = useState(false);
+
+  const handleToggleMenuClick = () => {
+    setIsActive(!isActive);
+  };
   return (
     <div css={wrapper}>
       <div css={headerBar}></div>
@@ -15,7 +19,7 @@ const Header = (props: Props) => {
         <div css={headerImage}>
           <img src={logo} alt="로고" />
         </div>
-        <div css={headerMenuToggle(isActive)}>
+        <div css={headerMenuToggle(isActive)} onClick={handleToggleMenuClick}>
           <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>

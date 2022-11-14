@@ -1,18 +1,31 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import React from "react";
+import React, { useState } from "react";
+import Paginate from "./Paginate";
 import SliderShow from "./SliderShow";
 
 type Props = {};
 
 const MainContent = (props: Props) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePaginate = (type: string) => {
+    if (type === "prev" && currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    } else {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
   return (
     <div css={mainContent}>
       <SliderShow />
       <div css={movieTitle}>
         <div className="movieType">Now Playing</div>
-        <div className="paginate">Paginate</div>
+        <div className="paginate">
+          <Paginate currentPage={currentPage} totalPages={10} onPaginate={handlePaginate} />
+        </div>
       </div>
     </div>
   );

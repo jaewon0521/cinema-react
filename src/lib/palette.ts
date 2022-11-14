@@ -1,3 +1,7 @@
+export const red = {
+  "100": "#dd003f",
+};
+
 export const blue = {
   "100": "#3498db",
 };
@@ -13,4 +17,4 @@ export const black = {
 };
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
-export default { blue, grey, black };
+export default { blue, grey, black, red };

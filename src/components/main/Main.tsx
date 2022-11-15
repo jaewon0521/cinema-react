@@ -19,7 +19,7 @@ const wrapper = css`
   text-align: center;
   height: 100vh;
   background-color: ${palette.black[200]};
-  overflow-y: auto;
+  /* overflow-y: auto; */
 `;
 
 export default Main;

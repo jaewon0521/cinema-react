@@ -37,7 +37,7 @@ const slider = css`
     img {
       display: block;
       width: 100%;
-      height: 100%;
+      height: 500px;
       object-fit: cover;
     }
   }

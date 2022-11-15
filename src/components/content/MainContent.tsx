@@ -2,10 +2,39 @@
 
 import { css } from "@emotion/react";
 import React, { useState } from "react";
+import Grid from "./Grid";
 import Paginate from "./Paginate";
 import SliderShow from "./SliderShow";
 
+import SlideImage1 from "assets/Cinema_1.jpg";
 type Props = {};
+
+const images = [
+  {
+    url: SlideImage1,
+    rating: 4.5,
+  },
+  {
+    url: SlideImage1,
+    rating: 3.5,
+  },
+  {
+    url: SlideImage1,
+    rating: 3.9,
+  },
+  {
+    url: SlideImage1,
+    rating: 4.8,
+  },
+  {
+    url: SlideImage1,
+    rating: 3.2,
+  },
+  {
+    url: SlideImage1,
+    rating: 4.2,
+  },
+];
 
 const MainContent = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,6 +56,7 @@ const MainContent = (props: Props) => {
           <Paginate currentPage={currentPage} totalPages={10} onPaginate={handlePaginate} />
         </div>
       </div>
+      <Grid images={images} />
     </div>
   );
 };

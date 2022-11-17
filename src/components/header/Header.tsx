@@ -6,8 +6,7 @@ import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
 import palette from "lib/palette";
 import { headerType, HEADER_LIST } from "lib/constants";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "module/store";
+import { useAppDispatch } from "module/store";
 import { API_TYPE } from "types/apiType";
 import { getMovieList } from "module/action";
 
@@ -40,7 +39,7 @@ const HeaderList = ({ header }: headerListProps) => {
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
-  const [type, setType] = useState(API_TYPE.NOW_PLAYING);
+  const [type] = useState(API_TYPE.NOW_PLAYING);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

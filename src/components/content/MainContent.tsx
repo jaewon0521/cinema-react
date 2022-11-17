@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import Grid from "../common/Grid";
 import Paginate from "../common/Paginate";
 import SliderShow from "../common/SliderShow";
 import randomFourImages from "lib/utils/randomFourImages";
 import { MovieDetailResponseType } from "api/type";
+import { useAppDispatch } from "module/store";
+import { getMovieList } from "module/action";
 
 type props = {
   list: MovieDetailResponseType[];
@@ -16,14 +18,16 @@ type props = {
 };
 
 const MainContent = ({ list, page, totalPages, movieType }: props) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const randomImageList = useMemo(() => randomFourImages(list), [list]);
+  const randomImageList = useMemo(() => randomFourImages(list), []);
+  const dispatch = useAppDispatch();
 
   const handlePaginate = (type: string) => {
-    if (type === "prev" && currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+    if (type === "prev" && page > 1) {
+      const prevPage = page - 1;
+      dispatch(getMovieList({ type: movieType, pageNumber: prevPage }));
     } else {
-      setCurrentPage((prev) => prev + 1);
+      const nextPage = page + 1;
+      dispatch(getMovieList({ type: movieType, pageNumber: nextPage }));
     }
   };
 

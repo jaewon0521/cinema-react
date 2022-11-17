@@ -22,7 +22,8 @@ const Main = () => {
     }
   }, [movies, dispatch, currentPage]);
   const $observerTarget = useInfinityScroll(loading, fechData);
-  if (loading) {
+
+  if (movies.list.length === 0) {
     return <Spinner />;
   }
 

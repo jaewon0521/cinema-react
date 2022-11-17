@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import MainContent from "components/content/MainContent";
 import palette from "lib/palette";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "module/store";
 import Spinner from "components/common/Spinner";
-import { loadmoreMovieList } from "module/action";
+import { loadMoreMovieList } from "module/action";
 import useInfinityScroll from "hook/useInfinityScroll";
 
 const Main = () => {
@@ -18,11 +18,10 @@ const Main = () => {
     if (movies.page < movies.totalPages) {
       let pageNumber = currentPage + 1;
       setCurrentPage((prev) => prev + 1);
-      dispatch(loadmoreMovieList({ type: movies.movieType, pageNumber }));
+      dispatch(loadMoreMovieList({ type: movies.movieType, pageNumber }));
     }
   }, [movies, dispatch, currentPage]);
   const $observerTarget = useInfinityScroll(loading, fechData);
-
   if (loading) {
     return <Spinner />;
   }

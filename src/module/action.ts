@@ -26,7 +26,7 @@ export const getMovieList = createAsyncThunk<MovieListResPonseType, GetMoviListT
   }
 );
 
-export const loadmoreMovieList = createAsyncThunk<
+export const loadMoreMovieList = createAsyncThunk<
   MovieListResPonseType,
   GetMoviListType,
   { rejectValue: MyKnoewErrorType }

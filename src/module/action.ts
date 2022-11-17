@@ -25,3 +25,17 @@ export const getMovieList = createAsyncThunk<MovieListResPonseType, GetMoviListT
     }
   }
 );
+
+export const loadmoreMovieList = createAsyncThunk<
+  MovieListResPonseType,
+  GetMoviListType,
+  { rejectValue: MyKnoewErrorType }
+>(actionType.LOAD_MORE_MOVIE_LIST, async ({ type, pageNumber }, { rejectWithValue }) => {
+  try {
+    const response = await MOIVE_API_URL(type, pageNumber);
+    return response;
+  } catch (err) {
+    const error = err as AxiosError;
+    return rejectWithValue({ errorMessage: error.message });
+  }
+});

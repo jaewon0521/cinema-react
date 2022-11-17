@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MovieListResPonseType } from "api/type";
 import { IMovieList } from "module/types";
 import { API_TYPE } from "types/apiCategoryType";
-import { getMovieList } from "module/action";
+import { getMovieList, loadmoreMovieList } from "module/action";
 
 interface MovieState {
   movies: IMovieList;
@@ -48,6 +48,12 @@ export const movieSlice = createSlice({
       .addCase(getMovieList.rejected, (state, action) => {
         state.error = action.payload?.errorMessage!;
         state.loading = false;
+      })
+      .addCase(loadmoreMovieList.fulfilled, (state, action: PayloadAction<MovieListResPonseType>) => {
+        const { movies } = state;
+        movies.list = [...movies.list, ...action.payload.results];
+        movies.page = action.payload.page;
+        movies.totalPages = action.payload.total_pages;
       });
   },
 });

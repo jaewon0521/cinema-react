@@ -12,8 +12,6 @@ export interface IMovieList {
 
 export const actionType = {
   MOVIE_LIST: "MOVIE/movieList",
+  LOAD_MORE_MOVIE_LIST: "MOVIE/loadMoreMovieList",
   SET_ERROR: "ERROR/error",
-  RESPONSE_PAGE: "MOIVE/responsePage",
-  LOAD_MORE_RESULTS: "MOIVE/loadMoreResults",
-  MOVIE_TYPE: "MOVIE/movieType",
 } as const;

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import Rating from "./Rating";

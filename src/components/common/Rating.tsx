@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import palette from "lib/palette";
 import useRatingStar from "hook/useRatingStar";
 
-type Props = {
+type RatingProps = {
   rating: number;
   totalStars: number;
 };
@@ -14,7 +14,7 @@ const RatingList = () => {
   return <i className="fa fa-star" aria-hidden="true"></i>;
 };
 
-const Rating = ({ rating, totalStars }: Props) => {
+const Rating = ({ rating, totalStars }: RatingProps) => {
   const { numberOfStars, ratingRef } = useRatingStar(rating, totalStars);
 
   return (

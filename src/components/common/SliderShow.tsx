@@ -1,12 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import React from "react";
-import { css } from "@emotion/react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-
-import SlideImage1 from "assets/Cinema_1.jpg";
-import SlideImage2 from "assets/Cinema_2.jpg";
+import { css } from "@emotion/react";
 
 type imageListType = {
   id: number;

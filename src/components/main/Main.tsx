@@ -1,16 +1,27 @@
 /** @jsxImportSource @emotion/react */
 
+import React from "react";
 import { css } from "@emotion/react";
 import MainContent from "components/content/MainContent";
 import palette from "lib/palette";
-import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "module/store";
+import Spinner from "components/common/Spinner";
 
-type Props = {};
+const Main = () => {
+  const { movies, loading, error } = useSelector((state: RootState) => state.movies);
 
-const Main = (props: Props) => {
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <div>오류인데요?</div>;
+  }
+
   return (
     <div css={wrapper}>
-      <MainContent />
+      <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={movies.movieType} />
     </div>
   );
 };

@@ -1,13 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "assets/cinema-logo.svg";
 import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
 import palette from "lib/palette";
-import { HEADER_LIST } from "lib/constants";
+import { headerType, HEADER_LIST } from "lib/constants";
+import { useAppDispatch } from "module/store";
+import { API_TYPE } from "types/apiType";
+import { getMovieList } from "module/action";
 
-type Props = {};
+interface headerListProps {
+  header: headerType;
+}
 
 const ToggleMenuBar = () => {
   return (
@@ -19,23 +24,27 @@ const ToggleMenuBar = () => {
   );
 };
 
-const HeaderList = () => {
+const HeaderList = ({ header }: headerListProps) => {
   return (
     <>
-      {HEADER_LIST.map((data) => (
-        <li key={data.id} className="header-nav-item">
-          <span className="header-list-name">
-            <i className={data.iconClass}></i>
-          </span>{" "}
-          <span className="header-list-name">{data.name}</span>
-        </li>
-      ))}
+      <li key={header.id} className="header-nav-item">
+        <span className="header-list-name">
+          <i className={header.iconClass}></i>
+        </span>{" "}
+        <span className="header-list-name">{header.name}</span>
+      </li>
     </>
   );
 };
 
-const Header = (props: Props) => {
+const Header = () => {
   const [isActive, setIsActive] = useState(false);
+  const [type] = useState(API_TYPE.NOW_PLAYING);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMovieList({ type, pageNumber: 1 }));
+  }, [dispatch, type]);
 
   const handleToggleMenuClick = () => {
     setIsActive(!isActive);
@@ -51,7 +60,9 @@ const Header = (props: Props) => {
           <ToggleMenuBar />
         </div>
         <ul css={headerNav(isActive)}>
-          <HeaderList />
+          {HEADER_LIST.map((header) => (
+            <HeaderList key={header.id} header={header} />
+          ))}
           <input type="text" css={searchInput} placeholder="Search for a movie" />
         </ul>
       </div>

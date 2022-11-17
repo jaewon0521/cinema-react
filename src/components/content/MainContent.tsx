@@ -2,12 +2,20 @@
 
 import { css } from "@emotion/react";
 import React, { useState } from "react";
-import Grid from "./Grid";
-import Paginate from "./Paginate";
-import SliderShow from "./SliderShow";
+import Grid from "../common/Grid";
+import Paginate from "../common/Paginate";
+import SliderShow from "../common/SliderShow";
 
 import SlideImage1 from "assets/Cinema_1.jpg";
-type Props = {};
+import { MovieDetailResponseType } from "api/type";
+import randomFourImages from "lib/utils/randomFourImages";
+
+type props = {
+  list: MovieDetailResponseType[];
+  page: number;
+  totalPages: number;
+  movieType: string;
+};
 
 const images = [
   {
@@ -36,8 +44,9 @@ const images = [
   },
 ];
 
-const MainContent = (props: Props) => {
+const MainContent = ({ list, page, totalPages, movieType }: props) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const randomImageList = randomFourImages(list);
 
   const handlePaginate = (type: string) => {
     if (type === "prev" && currentPage > 1) {
@@ -49,11 +58,11 @@ const MainContent = (props: Props) => {
 
   return (
     <div css={mainContent}>
-      <SliderShow />
+      <SliderShow imageList={randomImageList} />
       <div css={movieTitle}>
         <div className="movieType">Now Playing</div>
         <div className="paginate">
-          <Paginate currentPage={currentPage} totalPages={10} onPaginate={handlePaginate} />
+          <Paginate currentPage={page} totalPages={totalPages} onPaginate={handlePaginate} />
         </div>
       </div>
       <Grid images={images} />
@@ -68,7 +77,7 @@ const movieTitle = css`
   grid-template-areas: "movieType . paginate";
   grid-template-columns: max-content 1fr max-content;
   grid-template-rows: 1fr;
-  margin-bottom: 30px;
+  margin: 30px 0;
   font-size: 18px;
   color: #fff;
   width: inherit;

@@ -1,39 +1,55 @@
 /** @jsxImportSource @emotion/react */
 
 import React from "react";
+// import { v4 as uuidv4 } from "uuid";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import Rating from "./Rating";
-import { imageType } from "types/type";
 
-type Props = {
-  images: imageType[];
+type GridProps = {
+  images: {
+    url: string;
+    rating: number;
+  }[];
 };
 
-const Grid = ({ images }: Props) => {
+type GridListProps = {
+  image: {
+    url: string;
+    rating: number;
+  };
+};
+
+const GridList = ({ image }: GridListProps) => {
+  return (
+    <div>
+      <div
+        css={gridCell}
+        style={{
+          backgroundImage: `url(${image.url})`,
+        }}
+      >
+        <div className="grid-read-more">
+          <button className="grid-cell-button">Read More</button>
+        </div>
+        <div css={gridDetail}>
+          <span className="grid-detail-title">Mission Impossible</span>
+          <div className="grid-detail-rating">
+            <Rating rating={image.rating} totalStars={5} />
+            <div className="grid-vote-average">{image.rating}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Grid = ({ images }: GridProps) => {
   return (
     <>
       <div css={wrapper}>
         {images.map((image, idx) => (
-          <div key={idx}>
-            <div
-              css={gridCell}
-              style={{
-                backgroundImage: `url(${image.url})`,
-              }}
-            >
-              <div className="grid-read-more">
-                <button className="grid-cell-button">Read More</button>
-              </div>
-              <div css={gridDetail}>
-                <span className="grid-detail-title">Mission Impossible</span>
-                <div className="grid-detail-rating">
-                  <Rating rating={image.rating} totalStars={5} />
-                  <div className="grid-vote-average">{image.rating}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <GridList key={idx} image={image} />
         ))}
       </div>
     </>

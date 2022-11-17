@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
-import React, { useEffect, useState } from "react";
 
 type Props = {
   currentPage: number;

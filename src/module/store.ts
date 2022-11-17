@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 
 export const store = configureStore({
   reducer: {
-    errorReducer,
-    movieReducer,
+    error: errorReducer,
+    movies: movieReducer,
   },
 });
 

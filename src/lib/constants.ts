@@ -1,3 +1,5 @@
+export type headerType = typeof HEADER_LIST[number];
+
 export const HEADER_LIST = [
   {
     id: 1,

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Grid from "../common/Grid";
 import Paginate from "../common/Paginate";
 import SliderShow from "../common/SliderShow";
@@ -17,7 +17,7 @@ type props = {
 
 const MainContent = ({ list, page, totalPages, movieType }: props) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const randomImageList = randomFourImages(list);
+  const randomImageList = useMemo(() => randomFourImages(list), [list]);
 
   const handlePaginate = (type: string) => {
     if (type === "prev" && currentPage > 1) {

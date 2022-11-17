@@ -30,11 +30,11 @@ const Rating = ({ rating, totalStars }: RatingProps) => {
 
 const starRating = css`
   display: flex;
+  position: relative;
 
   .back-stars {
     display: flex;
     color: ${palette.grey[300]};
-    position: relative;
   }
 
   .front-stars {

@@ -44,7 +44,7 @@ const Grid = ({ movies }: GridProps) => {
   return (
     <>
       <div css={wrapper}>
-        {movies.map((movie, idx) => (
+        {movies.map((movie) => (
           <GridList key={uuidv4()} movie={movie} />
         ))}
       </div>

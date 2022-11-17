@@ -1,5 +1,5 @@
 import { MovieDetailResponseType } from "api/type";
-import { API_TYPE } from "types/apiType";
+import { API_TYPE } from "types/apiCategoryType";
 
 type MovieApiType = typeof API_TYPE[keyof typeof API_TYPE];
 

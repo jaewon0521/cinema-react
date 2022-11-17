@@ -7,7 +7,7 @@ import media from "lib/styles/media";
 import palette from "lib/palette";
 import { headerType, HEADER_LIST } from "lib/constants";
 import { useAppDispatch } from "module/store";
-import { API_TYPE } from "types/apiType";
+import { API_TYPE } from "types/apiCategoryType";
 import { getMovieList } from "module/action";
 
 interface headerListProps {

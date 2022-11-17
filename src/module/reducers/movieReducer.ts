@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MovieListResPonseType } from "api/type";
 import { IMovieList } from "module/types";
-import { API_TYPE } from "types/apiType";
+import { API_TYPE } from "types/apiCategoryType";
 import { getMovieList } from "module/action";
 
 interface MovieState {

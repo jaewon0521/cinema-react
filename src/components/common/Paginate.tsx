@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Paginate = ({ currentPage, totalPages, onPaginate }: Props) => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [totalPageNumber, setTotalPageNumber] = useState<number>(0);
 
   useEffect(() => {

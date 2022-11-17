@@ -7,6 +7,7 @@ import palette from "lib/palette";
 import Rating from "./Rating";
 import { MovieDetailResponseType } from "api/type";
 import { IMAGE_URL } from "api/service";
+import LazyImage from "./LazyImage";
 
 type GridProps = {
   movies: MovieDetailResponseType[];
@@ -19,12 +20,7 @@ type GridListProps = {
 const GridList = ({ movie }: GridListProps) => {
   return (
     <div>
-      <div
-        css={gridCell}
-        style={{
-          backgroundImage: `url(${IMAGE_URL}/${movie.poster_path})`,
-        }}
-      >
+      <LazyImage className={gridCell} src={`${IMAGE_URL}/${movie.poster_path}`}>
         <div className="grid-read-more">
           <button className="grid-cell-button">Read More</button>
         </div>
@@ -35,7 +31,7 @@ const GridList = ({ movie }: GridListProps) => {
             <div className="grid-vote-average">{movie.vote_average}</div>
           </div>
         </div>
-      </div>
+      </LazyImage>
     </div>
   );
 };

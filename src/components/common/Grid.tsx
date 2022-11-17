@@ -4,10 +4,12 @@ import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import Rating from "./Rating";
-import { imageType } from "types/type";
 
 type Props = {
-  images: imageType[];
+  images: {
+    url: string;
+    rating: number;
+  }[];
 };
 
 const Grid = ({ images }: Props) => {

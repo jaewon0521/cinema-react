@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "assets/cinema-logo.svg";
 import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
 import palette from "lib/palette";
 import { HEADER_LIST } from "lib/constants";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "module/store";
+import { API_TYPE } from "types/apiType";
+import { getMovieList } from "module/action";
 
 type Props = {};
 
@@ -36,6 +40,12 @@ const HeaderList = () => {
 
 const Header = (props: Props) => {
   const [isActive, setIsActive] = useState(false);
+  const [type, setType] = useState(API_TYPE.NOW_PLAYING);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMovieList({ type, pageNumber: 1 }));
+  }, [dispatch, type]);
 
   const handleToggleMenuClick = () => {
     setIsActive(!isActive);

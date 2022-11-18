@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MovieListResPonseType } from "./type";
+import { MovieListResPonseType } from "../types/apiResponseType";
 
 const REQUEST_URL = "https://api.themoviedb.org/3";
 const API_KEY = process.env.REACT_APP_APP_THEMOVIEDB_KEY;

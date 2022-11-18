@@ -1,5 +1,5 @@
 import { IMAGE_URL } from "api/service";
-import { MovieDetailResponseType } from "api/type";
+import { MovieDetailResponseType } from "types/apiResponseType";
 
 const randomFourImages = (list: MovieDetailResponseType[]) => {
   const randomState = [...list].sort(() => Math.random() - Math.random()).slice(0, 4);

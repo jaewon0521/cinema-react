@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MovieApiType } from "module/types";
-import { API_TYPE } from "types/apiCategoryType";
+import { API_TYPE, MovieApiItemType } from "types/apiCategoryType";
 
 interface MovieTypeState {
-  type: MovieApiType;
+  type: MovieApiItemType;
 }
 
 const initialState: MovieTypeState = {

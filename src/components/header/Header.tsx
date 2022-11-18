@@ -9,8 +9,8 @@ import { headerType, HEADER_LIST } from "lib/constants";
 import { RootState, useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
 import { changeMovieType } from "module/reducers/movieTypeReducer";
-import { MovieApiType } from "module/types";
 import { useSelector } from "react-redux";
+import { MovieApiItemType } from "types/apiCategoryType";
 
 interface headerListProps {
   header: headerType;
@@ -50,7 +50,7 @@ const Header = () => {
   };
 
   const handleCahngeMovieTypeUrl = (type: string, name: string) => {
-    const chageType = type as MovieApiType;
+    const chageType = type as MovieApiItemType;
     dispatch(changeMovieType({ type: chageType }));
   };
 

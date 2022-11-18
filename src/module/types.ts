@@ -1,7 +1,4 @@
-import { MovieDetailResponseType } from "api/type";
-import { API_TYPE } from "types/apiCategoryType";
-
-export type MovieApiType = typeof API_TYPE[keyof typeof API_TYPE];
+import { MovieDetailResponseType } from "types/apiResponseType";
 
 export interface IMovieList {
   list: MovieDetailResponseType[];

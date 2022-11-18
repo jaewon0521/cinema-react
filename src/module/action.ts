@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { MOIVE_API_URL } from "api/service";
-import { MovieListResPonseType } from "api/type";
+import { MovieListResPonseType } from "types/apiResponseType";
 import { AxiosError } from "axios";
+import { MovieApiItemType } from "types/apiCategoryType";
 import { actionType } from "./types";
 
 type GetMoviListType = {
-  type: string;
+  type: MovieApiItemType;
   pageNumber: number;
 };
 

@@ -1,11 +1,10 @@
-import { MovieApiType } from "module/types";
-import { API_TYPE } from "types/apiCategoryType";
+import { API_TYPE, MovieApiItemType } from "types/apiCategoryType";
 
 interface HeaderListType {
   id: number;
   iconClass: string;
   name: string;
-  type: MovieApiType;
+  type: MovieApiItemType;
 }
 
 export type headerType = typeof HEADER_LIST[number];

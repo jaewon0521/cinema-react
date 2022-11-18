@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import Rating from "./Rating";
-import { MovieDetailResponseType } from "api/type";
+import { MovieDetailResponseType } from "types/apiResponseType";
 import { IMAGE_URL } from "api/service";
 import LazyImage from "./LazyImage";
 

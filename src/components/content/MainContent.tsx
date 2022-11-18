@@ -6,15 +6,16 @@ import Grid from "../common/Grid";
 import Paginate from "../common/Paginate";
 import SliderShow from "../common/SliderShow";
 import randomFourImages from "lib/utils/randomFourImages";
-import { MovieDetailResponseType } from "api/type";
+import { MovieDetailResponseType } from "types/apiResponseType";
 import { useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
+import { MovieApiItemType } from "types/apiCategoryType";
 
 type props = {
   list: MovieDetailResponseType[];
   page: number;
   totalPages: number;
-  movieType: string;
+  movieType: MovieApiItemType;
 };
 
 const MainContent = ({ list, page, totalPages, movieType }: props) => {

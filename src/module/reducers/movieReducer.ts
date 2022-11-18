@@ -5,7 +5,6 @@ import { getMovieList, loadMoreMovieList } from "module/action";
 
 interface MovieState {
   movies: IMovieList;
-  loading: boolean;
   error: string | null;
 }
 
@@ -15,7 +14,6 @@ const initialState: MovieState = {
     page: 1,
     totalPages: 0,
   },
-  loading: true,
   error: null,
 };
 
@@ -25,21 +23,15 @@ export const movieSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getMovieList.pending, (state) => {
-        state.error = null;
-        state.loading = true;
-      })
       .addCase(getMovieList.fulfilled, (state, action: PayloadAction<MovieListResPonseType>) => {
         const { movies } = state;
         state.error = null;
-        state.loading = false;
         movies.list = action.payload.results;
         movies.page = action.payload.page;
         movies.totalPages = action.payload.total_pages;
       })
       .addCase(getMovieList.rejected, (state, action) => {
         state.error = action.payload?.errorMessage!;
-        state.loading = false;
       })
       .addCase(loadMoreMovieList.fulfilled, (state, action: PayloadAction<MovieListResPonseType>) => {
         const { movies } = state;

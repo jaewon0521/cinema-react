@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
-const useInfinityScroll = (loading: boolean, fetchFunc: () => void) => {
+const useInfinityScroll = (fetchFunc: () => void) => {
   const $refTarget = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!$refTarget.current || loading) return;
+    if (!$refTarget.current) return;
 
     const infinityScroll = new IntersectionObserver((entries, observer) => {
       if (entries[0].isIntersecting) {
@@ -17,7 +17,7 @@ const useInfinityScroll = (loading: boolean, fetchFunc: () => void) => {
     return () => {
       infinityScroll.disconnect();
     };
-  }, [fetchFunc, loading]);
+  }, [fetchFunc]);
 
   return $refTarget;
 };

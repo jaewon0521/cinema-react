@@ -11,10 +11,11 @@ import { loadMoreMovieList } from "module/action";
 import useInfinityScroll from "hook/useInfinityScroll";
 
 const Main = () => {
-  const { movies, loading, error } = useSelector((state: RootState) => state.movies);
+  const { movies, error } = useSelector((state: RootState) => state.movies);
   const { type } = useSelector((state: RootState) => state.movieType);
   const [currentPage, setCurrentPage] = useState(movies.page);
   const dispatch = useAppDispatch();
+
   const fechData = useCallback(() => {
     if (movies.page < movies.totalPages) {
       let pageNumber = currentPage + 1;
@@ -22,7 +23,8 @@ const Main = () => {
       dispatch(loadMoreMovieList({ type, pageNumber }));
     }
   }, [movies, type, dispatch, currentPage]);
-  const $observerTarget = useInfinityScroll(loading, fechData);
+
+  const $observerTarget = useInfinityScroll(fechData);
 
   if (movies.list.length === 0) {
     return <Spinner />;

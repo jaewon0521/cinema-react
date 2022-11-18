@@ -18,6 +18,7 @@ type props = {
 };
 
 const MainContent = ({ list, page, totalPages, movieType }: props) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const randomImageList = useMemo(() => randomFourImages(list), []);
   const dispatch = useAppDispatch();
 

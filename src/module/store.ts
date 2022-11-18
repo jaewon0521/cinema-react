@@ -2,11 +2,13 @@ import { movieReducer } from "./reducers/movieReducer";
 import { errorReducer } from "./reducers/errorReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import { movieTypeReducer } from "./reducers/movieTypeReducer";
 
 export const store = configureStore({
   reducer: {
-    errorReducer,
-    movieReducer,
+    error: errorReducer,
+    movies: movieReducer,
+    movieType: movieTypeReducer,
   },
 });
 

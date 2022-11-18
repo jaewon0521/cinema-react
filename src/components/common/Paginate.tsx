@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
+import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
-import React, { useEffect, useState } from "react";
 
 type Props = {
   currentPage: number;
@@ -11,27 +11,19 @@ type Props = {
 };
 
 const Paginate = ({ currentPage, totalPages, onPaginate }: Props) => {
-  const [page, setPage] = useState<number>(1);
-  const [totalPageNumber, setTotalPageNumber] = useState<number>(0);
-
-  useEffect(() => {
-    setPage(currentPage);
-    setTotalPageNumber(totalPages);
-  }, [currentPage, totalPages]);
-
   return (
     <>
       <span css={pageCount}>
-        {page} - {totalPageNumber}
+        {currentPage} - {totalPages}
       </span>
-      <button css={page > 1 ? paginateButton : [paginateButton, disable]} onClick={() => onPaginate("prev")}>
-        Prev
+      <button css={currentPage > 1 ? paginateButton : [paginateButton, disable]} onClick={() => onPaginate("prev")}>
+        이전
       </button>
       <button
-        css={page === totalPageNumber ? [paginateButton, disable] : paginateButton}
+        css={currentPage === totalPages ? [paginateButton, disable] : paginateButton}
         onClick={() => onPaginate("next")}
       >
-        Next
+        다음
       </button>
     </>
   );

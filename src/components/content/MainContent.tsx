@@ -1,62 +1,51 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import React, { useState } from "react";
-import Grid from "./Grid";
-import Paginate from "./Paginate";
-import SliderShow from "./SliderShow";
+import React, { useMemo } from "react";
+import Grid from "../common/Grid";
+import Paginate from "../common/Paginate";
+import SliderShow from "../common/SliderShow";
+import randomFourImages from "lib/utils/randomFourImages";
+import { MovieDetailResponseType } from "types/apiResponseType";
+import { useAppDispatch } from "module/store";
+import { getMovieList } from "module/action";
+import { MovieApiItemType } from "types/apiCategoryType";
+import { HEADER_LIST } from "lib/constants";
 
-import SlideImage1 from "assets/Cinema_1.jpg";
-type Props = {};
+type props = {
+  list: MovieDetailResponseType[];
+  page: number;
+  totalPages: number;
+  movieType: MovieApiItemType;
+};
 
-const images = [
-  {
-    url: SlideImage1,
-    rating: 4.5,
-  },
-  {
-    url: SlideImage1,
-    rating: 3.5,
-  },
-  {
-    url: SlideImage1,
-    rating: 3.9,
-  },
-  {
-    url: SlideImage1,
-    rating: 4.8,
-  },
-  {
-    url: SlideImage1,
-    rating: 3.2,
-  },
-  {
-    url: SlideImage1,
-    rating: 4.2,
-  },
-];
+const MainContent = ({ list, page, totalPages, movieType }: props) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const randomImageList = useMemo(() => randomFourImages(list), []);
+  const dispatch = useAppDispatch();
 
-const MainContent = (props: Props) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentMovieType = HEADER_LIST.find((header) => header.type === movieType)?.name;
 
   const handlePaginate = (type: string) => {
-    if (type === "prev" && currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+    if (type === "prev" && page > 1) {
+      const prevPage = page - 1;
+      dispatch(getMovieList({ type: movieType, pageNumber: prevPage }));
     } else {
-      setCurrentPage((prev) => prev + 1);
+      const nextPage = page + 1;
+      dispatch(getMovieList({ type: movieType, pageNumber: nextPage }));
     }
   };
 
   return (
     <div css={mainContent}>
-      <SliderShow />
+      <SliderShow imageList={randomImageList} />
       <div css={movieTitle}>
-        <div className="movieType">Now Playing</div>
+        <div className="movieType">{currentMovieType}</div>
         <div className="paginate">
-          <Paginate currentPage={currentPage} totalPages={10} onPaginate={handlePaginate} />
+          <Paginate currentPage={page} totalPages={totalPages} onPaginate={handlePaginate} />
         </div>
       </div>
-      <Grid images={images} />
+      <Grid movies={list} />
     </div>
   );
 };
@@ -68,7 +57,7 @@ const movieTitle = css`
   grid-template-areas: "movieType . paginate";
   grid-template-columns: max-content 1fr max-content;
   grid-template-rows: 1fr;
-  margin-bottom: 30px;
+  margin: 30px 0;
   font-size: 18px;
   color: #fff;
   width: inherit;

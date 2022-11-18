@@ -1,23 +1,49 @@
 /** @jsxImportSource @emotion/react */
 
+import React, { useCallback } from "react";
 import { css } from "@emotion/react";
 import MainContent from "components/content/MainContent";
 import palette from "lib/palette";
-import React from "react";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "module/store";
+import Spinner from "components/common/Spinner";
+import { loadMoreMovieList } from "module/action";
+import useInfinityScroll from "hook/useInfinityScroll";
 
-type Props = {};
+const Main = () => {
+  const { movies, error } = useSelector((state: RootState) => state.movies);
+  const { type } = useSelector((state: RootState) => state.movieType);
+  const dispatch = useAppDispatch();
 
-const Main = (props: Props) => {
+  const fechData = useCallback(() => {
+    if (movies.page < movies.totalPages) {
+      let pageNumber = movies.page + 1;
+      dispatch(loadMoreMovieList({ type, pageNumber }));
+    }
+  }, [movies, type, dispatch]);
+
+  const $observerTarget = useInfinityScroll(fechData);
+
+  if (movies.list.length === 0) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <div>오류인데요?</div>;
+  }
+
   return (
-    <div css={wrapper}>
-      <MainContent />
-    </div>
+    <>
+      <div css={wrapper}>
+        <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={type} />
+      </div>
+      <div ref={$observerTarget}></div>
+    </>
   );
 };
 
 const wrapper = css`
   text-align: center;
-  height: 100vh;
   background-color: ${palette.black[200]};
   /* overflow-y: auto; */
 `;

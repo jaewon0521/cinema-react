@@ -1,13 +1,22 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "assets/cinema-logo.svg";
 import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
 import palette from "lib/palette";
-import { HEADER_LIST } from "lib/constants";
+import { headerType, HEADER_LIST } from "lib/constants";
+import { RootState, useAppDispatch } from "module/store";
+import { getMovieList } from "module/action";
+import { changeMovieType } from "module/reducers/movieTypeReducer";
+import { useSelector } from "react-redux";
+import { MovieApiItemType } from "types/apiCategoryType";
 
-type Props = {};
+interface headerListProps {
+  header: headerType;
+  activeType: MovieApiItemType;
+  changeType: (type: MovieApiItemType, name: string) => void;
+}
 
 const ToggleMenuBar = () => {
   return (
@@ -19,27 +28,40 @@ const ToggleMenuBar = () => {
   );
 };
 
-const HeaderList = () => {
+const HeaderList = ({ header, changeType, activeType }: headerListProps) => {
   return (
     <>
-      {HEADER_LIST.map((data) => (
-        <li key={data.id} className="header-nav-item">
-          <span className="header-list-name">
-            <i className={data.iconClass}></i>
-          </span>{" "}
-          <span className="header-list-name">{data.name}</span>
-        </li>
-      ))}
+      <li
+        key={header.id}
+        className={activeType === header.type ? "header-nav-item active-item" : "header-nav-item"}
+        onClick={() => changeType(header.type, header.name)}
+      >
+        <span className="header-list-name">
+          <i className={header.iconClass}></i>
+        </span>{" "}
+        <span className="header-list-name">{header.name}</span>
+      </li>
     </>
   );
 };
 
-const Header = (props: Props) => {
+const Header = () => {
   const [isActive, setIsActive] = useState(false);
+  const { type } = useSelector((state: RootState) => state.movieType);
+  const dispatch = useAppDispatch();
 
   const handleToggleMenuClick = () => {
     setIsActive(!isActive);
   };
+
+  const handleCahngeMovieTypeUrl = (type: MovieApiItemType, name: string) => {
+    dispatch(changeMovieType({ type }));
+  };
+
+  useEffect(() => {
+    dispatch(getMovieList({ type, pageNumber: 1 }));
+  }, [dispatch, type]);
+
   return (
     <div css={wrapper}>
       <div css={headerBar}></div>
@@ -51,7 +73,9 @@ const Header = (props: Props) => {
           <ToggleMenuBar />
         </div>
         <ul css={headerNav(isActive)}>
-          <HeaderList />
+          {HEADER_LIST.map((header) => (
+            <HeaderList key={header.id} activeType={type} header={header} changeType={handleCahngeMovieTypeUrl} />
+          ))}
           <input type="text" css={searchInput} placeholder="Search for a movie" />
         </ul>
       </div>
@@ -118,6 +142,7 @@ const headerImage = css`
 
   img {
     width: 170px;
+    cursor: pointer;
   }
 `;
 
@@ -193,6 +218,7 @@ const headerNav = (isActive: boolean) => css`
     padding-right: 15px;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
 
     .header-list-name {
       font-size: 0.9rem;
@@ -205,9 +231,14 @@ const headerNav = (isActive: boolean) => css`
       padding-right: 5px;
     }
 
-    a:hover {
+    i:hover {
       color: ${palette.blue[100]};
     }
+  }
+
+  .active-item {
+    color: ${palette.blue[100]};
+    transform: scale(1 1);
   }
   ${isActive &&
   css`

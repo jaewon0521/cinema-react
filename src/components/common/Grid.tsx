@@ -1,39 +1,47 @@
 /** @jsxImportSource @emotion/react */
 
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import Rating from "./Rating";
-import { imageType } from "types/type";
+import { MovieDetailResponseType } from "types/apiResponseType";
+import { IMAGE_URL } from "api/service";
+import LazyImage from "./LazyImage";
 
-type Props = {
-  images: imageType[];
+type GridProps = {
+  movies: MovieDetailResponseType[];
 };
 
-const Grid = ({ images }: Props) => {
+type GridListProps = {
+  movie: MovieDetailResponseType;
+};
+
+const GridList = ({ movie }: GridListProps) => {
+  return (
+    <div>
+      <LazyImage className={gridCell} src={`${IMAGE_URL}/${movie.poster_path}`}>
+        <div className="grid-read-more">
+          <button className="grid-cell-button">Read More</button>
+        </div>
+        <div css={gridDetail}>
+          <span className="grid-detail-title">{movie.title}</span>
+          <div className="grid-detail-rating">
+            <Rating rating={movie.vote_average} totalStars={10} />
+            <div className="grid-vote-average">{movie.vote_average}</div>
+          </div>
+        </div>
+      </LazyImage>
+    </div>
+  );
+};
+
+const Grid = ({ movies }: GridProps) => {
   return (
     <>
       <div css={wrapper}>
-        {images.map((image, idx) => (
-          <div key={idx}>
-            <div
-              css={gridCell}
-              style={{
-                backgroundImage: `url(${image.url})`,
-              }}
-            >
-              <div className="grid-read-more">
-                <button className="grid-cell-button">Read More</button>
-              </div>
-              <div css={gridDetail}>
-                <span className="grid-detail-title">Mission Impossible</span>
-                <div className="grid-detail-rating">
-                  <Rating rating={image.rating} totalStars={5} />
-                  <div className="grid-vote-average">{image.rating}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {movies.map((movie) => (
+          <GridList key={uuidv4()} movie={movie} />
         ))}
       </div>
     </>

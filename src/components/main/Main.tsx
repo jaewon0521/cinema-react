@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { css } from "@emotion/react";
 import MainContent from "components/content/MainContent";
 import palette from "lib/palette";
@@ -13,16 +13,14 @@ import useInfinityScroll from "hook/useInfinityScroll";
 const Main = () => {
   const { movies, error } = useSelector((state: RootState) => state.movies);
   const { type } = useSelector((state: RootState) => state.movieType);
-  const [currentPage, setCurrentPage] = useState(movies.page);
   const dispatch = useAppDispatch();
 
   const fechData = useCallback(() => {
     if (movies.page < movies.totalPages) {
-      let pageNumber = currentPage + 1;
-      setCurrentPage((prev) => prev + 1);
+      let pageNumber = movies.page + 1;
       dispatch(loadMoreMovieList({ type, pageNumber }));
     }
-  }, [movies, type, dispatch, currentPage]);
+  }, [movies, type, dispatch]);
 
   const $observerTarget = useInfinityScroll(fechData);
 

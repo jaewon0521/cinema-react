@@ -12,15 +12,16 @@ import useInfinityScroll from "hook/useInfinityScroll";
 
 const Main = () => {
   const { movies, loading, error } = useSelector((state: RootState) => state.movies);
+  const { type } = useSelector((state: RootState) => state.movieType);
   const [currentPage, setCurrentPage] = useState(movies.page);
   const dispatch = useAppDispatch();
   const fechData = useCallback(() => {
     if (movies.page < movies.totalPages) {
       let pageNumber = currentPage + 1;
       setCurrentPage((prev) => prev + 1);
-      dispatch(loadMoreMovieList({ type: movies.movieType, pageNumber }));
+      dispatch(loadMoreMovieList({ type, pageNumber }));
     }
-  }, [movies, dispatch, currentPage]);
+  }, [movies, type, dispatch, currentPage]);
   const $observerTarget = useInfinityScroll(loading, fechData);
 
   if (movies.list.length === 0) {
@@ -34,12 +35,7 @@ const Main = () => {
   return (
     <>
       <div css={wrapper}>
-        <MainContent
-          list={movies.list}
-          page={movies.page}
-          totalPages={movies.totalPages}
-          movieType={movies.movieType}
-        />
+        <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={type} />
       </div>
       <div ref={$observerTarget}></div>
     </>

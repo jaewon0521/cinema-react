@@ -1,28 +1,38 @@
+import { MovieApiType } from "module/types";
+import { API_TYPE } from "types/apiCategoryType";
+
+interface HeaderListType {
+  id: number;
+  iconClass: string;
+  name: string;
+  type: MovieApiType;
+}
+
 export type headerType = typeof HEADER_LIST[number];
 
-export const HEADER_LIST = [
+export const HEADER_LIST: HeaderListType[] = [
   {
     id: 1,
     iconClass: "fas fa-film",
     name: "Now Playing",
-    type: "now_playing",
+    type: API_TYPE.NOW_PLAYING,
   },
   {
     id: 2,
     iconClass: "fas fa-fire",
     name: "Popular",
-    type: "popular",
+    type: API_TYPE.POPULAR,
   },
   {
     id: 3,
     iconClass: "fas fa-star",
     name: "Top Rated",
-    type: "top_rated",
+    type: API_TYPE.TOP_RATED,
   },
   {
     id: 4,
     iconClass: "fas fa-plus-square",
     name: "Upcoming",
-    type: "upcoming",
+    type: API_TYPE.UPCOMING,
   },
 ];

@@ -35,7 +35,7 @@ const MainContent = ({ list, page, totalPages, movieType }: props) => {
     <div css={mainContent}>
       <SliderShow imageList={randomImageList} />
       <div css={movieTitle}>
-        <div className="movieType">Now Playing</div>
+        <div className="movieType">{movieType}</div>
         <div className="paginate">
           <Paginate currentPage={page} totalPages={totalPages} onPaginate={handlePaginate} />
         </div>

@@ -7,7 +7,6 @@ export interface IMovieList {
   list: MovieDetailResponseType[];
   page: number;
   totalPages: number;
-  movieType: MovieApiType;
 }
 
 export const actionType = {

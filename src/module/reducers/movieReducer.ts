@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MovieListResPonseType } from "api/type";
 import { IMovieList } from "module/types";
-import { API_TYPE } from "types/apiCategoryType";
 import { getMovieList, loadMoreMovieList } from "module/action";
 
 interface MovieState {
@@ -15,7 +14,6 @@ const initialState: MovieState = {
     list: [],
     page: 1,
     totalPages: 0,
-    movieType: API_TYPE.NOW_PLAYING,
   },
   loading: true,
   error: null,
@@ -24,12 +22,7 @@ const initialState: MovieState = {
 export const movieSlice = createSlice({
   name: "movie",
   initialState,
-  reducers: {
-    responsePage: (state, action) => {
-      const { movies } = state;
-      movies.page = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getMovieList.pending, (state) => {
@@ -57,5 +50,4 @@ export const movieSlice = createSlice({
   },
 });
 
-export const { responsePage } = movieSlice.actions;
 export const movieReducer = movieSlice.reducer;

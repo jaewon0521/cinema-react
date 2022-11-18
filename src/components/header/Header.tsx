@@ -6,12 +6,15 @@ import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
 import palette from "lib/palette";
 import { headerType, HEADER_LIST } from "lib/constants";
-import { useAppDispatch } from "module/store";
-import { API_TYPE } from "types/apiCategoryType";
+import { RootState, useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
+import { changeMovieType } from "module/reducers/movieTypeReducer";
+import { MovieApiType } from "module/types";
+import { useSelector } from "react-redux";
 
 interface headerListProps {
   header: headerType;
+  changeType: (tyoe: string, name: string) => void;
 }
 
 const ToggleMenuBar = () => {
@@ -24,10 +27,10 @@ const ToggleMenuBar = () => {
   );
 };
 
-const HeaderList = ({ header }: headerListProps) => {
+const HeaderList = ({ header, changeType }: headerListProps) => {
   return (
     <>
-      <li key={header.id} className="header-nav-item">
+      <li key={header.id} className="header-nav-item" onClick={() => changeType(header.type, header.name)}>
         <span className="header-list-name">
           <i className={header.iconClass}></i>
         </span>{" "}
@@ -39,16 +42,22 @@ const HeaderList = ({ header }: headerListProps) => {
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
-  const [type] = useState(API_TYPE.NOW_PLAYING);
+  const { type } = useSelector((state: RootState) => state.movieType);
   const dispatch = useAppDispatch();
+
+  const handleToggleMenuClick = () => {
+    setIsActive(!isActive);
+  };
+
+  const handleCahngeMovieTypeUrl = (type: string, name: string) => {
+    const chageType = type as MovieApiType;
+    dispatch(changeMovieType({ type: chageType }));
+  };
 
   useEffect(() => {
     dispatch(getMovieList({ type, pageNumber: 1 }));
   }, [dispatch, type]);
 
-  const handleToggleMenuClick = () => {
-    setIsActive(!isActive);
-  };
   return (
     <div css={wrapper}>
       <div css={headerBar}></div>
@@ -61,7 +70,7 @@ const Header = () => {
         </div>
         <ul css={headerNav(isActive)}>
           {HEADER_LIST.map((header) => (
-            <HeaderList key={header.id} header={header} />
+            <HeaderList key={header.id} header={header} changeType={handleCahngeMovieTypeUrl} />
           ))}
           <input type="text" css={searchInput} placeholder="Search for a movie" />
         </ul>

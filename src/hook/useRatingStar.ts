@@ -8,12 +8,11 @@ const useRatingStar = (rating: number, totalStars: number) => {
     const starsArray = Array.from({ length: totalStars })
       .fill(0)
       .map((_, i) => i + 1);
-
     let percentage;
     if (rating <= 5) {
-      percentage = (rating / 5) * 25;
+      percentage = (rating / 5) * 100;
     } else {
-      percentage = (rating / 10) * 25;
+      percentage = (rating / 10) * 100;
     }
 
     const starPercentage = `${Math.floor(percentage)}%`;

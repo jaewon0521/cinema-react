@@ -1,55 +1,47 @@
 /** @jsxImportSource @emotion/react */
 
 import React from "react";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import Rating from "./Rating";
+import { MovieDetailResponseType } from "types/apiResponseType";
+import { IMAGE_URL } from "api/service";
+import LazyImage from "./LazyImage";
 
 type GridProps = {
-  images: {
-    url: string;
-    rating: number;
-  }[];
+  movies: MovieDetailResponseType[];
 };
 
 type GridListProps = {
-  image: {
-    url: string;
-    rating: number;
-  };
+  movie: MovieDetailResponseType;
 };
 
-const GridList = ({ image }: GridListProps) => {
+const GridList = ({ movie }: GridListProps) => {
   return (
     <div>
-      <div
-        css={gridCell}
-        style={{
-          backgroundImage: `url(${image.url})`,
-        }}
-      >
+      <LazyImage className={gridCell} src={`${IMAGE_URL}/${movie.poster_path}`}>
         <div className="grid-read-more">
           <button className="grid-cell-button">Read More</button>
         </div>
         <div css={gridDetail}>
-          <span className="grid-detail-title">Mission Impossible</span>
+          <span className="grid-detail-title">{movie.title}</span>
           <div className="grid-detail-rating">
-            <Rating rating={image.rating} totalStars={5} />
-            <div className="grid-vote-average">{image.rating}</div>
+            <Rating rating={movie.vote_average} totalStars={10} />
+            <div className="grid-vote-average">{movie.vote_average}</div>
           </div>
         </div>
-      </div>
+      </LazyImage>
     </div>
   );
 };
 
-const Grid = ({ images }: GridProps) => {
+const Grid = ({ movies }: GridProps) => {
   return (
     <>
       <div css={wrapper}>
-        {images.map((image, idx) => (
-          <GridList key={idx} image={image} />
+        {movies.map((movie) => (
+          <GridList key={uuidv4()} movie={movie} />
         ))}
       </div>
     </>

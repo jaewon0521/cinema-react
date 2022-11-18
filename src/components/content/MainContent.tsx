@@ -10,6 +10,7 @@ import { MovieDetailResponseType } from "types/apiResponseType";
 import { useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
 import { MovieApiItemType } from "types/apiCategoryType";
+import { HEADER_LIST } from "lib/constants";
 
 type props = {
   list: MovieDetailResponseType[];
@@ -22,6 +23,8 @@ const MainContent = ({ list, page, totalPages, movieType }: props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const randomImageList = useMemo(() => randomFourImages(list), []);
   const dispatch = useAppDispatch();
+
+  const currentMovieType = HEADER_LIST.find((header) => header.type === movieType)?.name;
 
   const handlePaginate = (type: string) => {
     if (type === "prev" && page > 1) {
@@ -37,7 +40,7 @@ const MainContent = ({ list, page, totalPages, movieType }: props) => {
     <div css={mainContent}>
       <SliderShow imageList={randomImageList} />
       <div css={movieTitle}>
-        <div className="movieType">{movieType}</div>
+        <div className="movieType">{currentMovieType}</div>
         <div className="paginate">
           <Paginate currentPage={page} totalPages={totalPages} onPaginate={handlePaginate} />
         </div>

@@ -14,7 +14,8 @@ import { MovieApiItemType } from "types/apiCategoryType";
 
 interface headerListProps {
   header: headerType;
-  changeType: (tyoe: string, name: string) => void;
+  activeType: MovieApiItemType;
+  changeType: (type: MovieApiItemType, name: string) => void;
 }
 
 const ToggleMenuBar = () => {
@@ -27,10 +28,14 @@ const ToggleMenuBar = () => {
   );
 };
 
-const HeaderList = ({ header, changeType }: headerListProps) => {
+const HeaderList = ({ header, changeType, activeType }: headerListProps) => {
   return (
     <>
-      <li key={header.id} className="header-nav-item" onClick={() => changeType(header.type, header.name)}>
+      <li
+        key={header.id}
+        className={activeType === header.type ? "header-nav-item active-item" : "header-nav-item"}
+        onClick={() => changeType(header.type, header.name)}
+      >
         <span className="header-list-name">
           <i className={header.iconClass}></i>
         </span>{" "}
@@ -49,9 +54,8 @@ const Header = () => {
     setIsActive(!isActive);
   };
 
-  const handleCahngeMovieTypeUrl = (type: string, name: string) => {
-    const chageType = type as MovieApiItemType;
-    dispatch(changeMovieType({ type: chageType }));
+  const handleCahngeMovieTypeUrl = (type: MovieApiItemType, name: string) => {
+    dispatch(changeMovieType({ type }));
   };
 
   useEffect(() => {
@@ -70,7 +74,7 @@ const Header = () => {
         </div>
         <ul css={headerNav(isActive)}>
           {HEADER_LIST.map((header) => (
-            <HeaderList key={header.id} header={header} changeType={handleCahngeMovieTypeUrl} />
+            <HeaderList key={header.id} activeType={type} header={header} changeType={handleCahngeMovieTypeUrl} />
           ))}
           <input type="text" css={searchInput} placeholder="Search for a movie" />
         </ul>
@@ -138,6 +142,7 @@ const headerImage = css`
 
   img {
     width: 170px;
+    cursor: pointer;
   }
 `;
 
@@ -213,6 +218,7 @@ const headerNav = (isActive: boolean) => css`
     padding-right: 15px;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
 
     .header-list-name {
       font-size: 0.9rem;
@@ -225,9 +231,14 @@ const headerNav = (isActive: boolean) => css`
       padding-right: 5px;
     }
 
-    a:hover {
+    i:hover {
       color: ${palette.blue[100]};
     }
+  }
+
+  .active-item {
+    color: ${palette.blue[100]};
+    transform: scale(1 1);
   }
   ${isActive &&
   css`

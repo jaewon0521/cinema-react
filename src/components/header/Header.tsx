@@ -1,50 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useState, useEffect, useCallback } from "react";
-import logo from "assets/cinema-logo.svg";
+import { useSelector } from "react-redux";
 import { css, keyframes } from "@emotion/react";
+import logo from "assets/cinema-logo.svg";
 import media from "lib/styles/media";
 import palette from "lib/palette";
-import { headerType, HEADER_LIST } from "lib/constants";
+import { HEADER_LIST } from "lib/constants";
 import { RootState, useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
 import { changeMovieType } from "module/reducers/movieTypeSlice";
-import { useSelector } from "react-redux";
 import { MovieApiItemType } from "types/apiCategoryType";
 import SearchResult from "./SearchInput";
-
-interface headerListProps {
-  header: headerType;
-  activeType: MovieApiItemType;
-  changeType: (type: MovieApiItemType, name: string) => void;
-}
-
-const ToggleMenuBar = () => {
-  return (
-    <>
-      <span className="bar"></span>
-      <span className="bar"></span>
-      <span className="bar"></span>
-    </>
-  );
-};
-
-const HeaderList = ({ header, changeType, activeType }: headerListProps) => {
-  return (
-    <>
-      <li
-        key={header.id}
-        className={activeType === header.type ? "header-nav-item active-item" : "header-nav-item"}
-        onClick={() => changeType(header.type, header.name)}
-      >
-        <span className="header-list-name">
-          <i className={header.iconClass}></i>
-        </span>{" "}
-        <span className="header-list-name">{header.name}</span>
-      </li>
-    </>
-  );
-};
+import HeaderList from "./HeaderList";
+import ToggleMenuBar from "./ToggleMenuBar";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);

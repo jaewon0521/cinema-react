@@ -20,8 +20,6 @@ const SearchResult = (props: Props) => {
 
   const handleKeyDownEnter = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      // console.log(e.target.value);
-      console.log(e.key);
       if (e.key === "Enter") {
         dispatch(searchQueryChange(searchText));
         dispatch(getSearchMovieList({ query: searchText }));

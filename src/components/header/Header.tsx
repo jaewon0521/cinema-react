@@ -8,7 +8,7 @@ import palette from "lib/palette";
 import { headerType, HEADER_LIST } from "lib/constants";
 import { RootState, useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
-import { changeMovieType } from "module/reducers/movieTypeReducer";
+import { changeMovieType } from "module/reducers/movieTypeSlice";
 import { useSelector } from "react-redux";
 import { MovieApiItemType } from "types/apiCategoryType";
 

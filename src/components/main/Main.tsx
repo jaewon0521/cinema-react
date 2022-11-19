@@ -7,20 +7,23 @@ import palette from "lib/palette";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "module/store";
 import Spinner from "components/common/Spinner";
-import { loadMoreMovieList } from "module/action";
+import { getMoreMovieList } from "module/action";
 import useInfinityScroll from "hook/useInfinityScroll";
+import SearchResult from "components/SearchResult/SearchResult";
 
 const Main = () => {
-  const { movies, error } = useSelector((state: RootState) => state.movies);
+  const { movies, searchResult, searchQuery, error } = useSelector((state: RootState) => state.movies);
   const { type } = useSelector((state: RootState) => state.movieType);
   const dispatch = useAppDispatch();
 
   const fechData = useCallback(() => {
+    if (searchResult.length) return;
+
     if (movies.page < movies.totalPages) {
       let pageNumber = movies.page + 1;
-      dispatch(loadMoreMovieList({ type, pageNumber }));
+      dispatch(getMoreMovieList({ type, pageNumber }));
     }
-  }, [movies, type, dispatch]);
+  }, [movies, type, dispatch, searchResult]);
 
   const $observerTarget = useInfinityScroll(fechData);
 
@@ -35,9 +38,13 @@ const Main = () => {
   return (
     <>
       <div css={wrapper}>
-        <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={type} />
+        {searchResult.length === 0 ? (
+          <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={type} />
+        ) : (
+          <SearchResult list={searchResult} keyWord={searchQuery} />
+        )}
+        <div ref={$observerTarget}></div>
       </div>
-      <div ref={$observerTarget}></div>
     </>
   );
 };
@@ -48,4 +55,4 @@ const wrapper = css`
   /* overflow-y: auto; */
 `;
 
-export default Main;
+export default React.memo(Main);

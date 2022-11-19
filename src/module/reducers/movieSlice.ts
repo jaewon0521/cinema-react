@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MovieDetailResponseType, MovieListResPonseType } from "types/apiResponseType";
-import { getMovieList, loadMoreMovieList } from "module/action";
+import { getMovieList, getMoreMovieList, getSearchMovieList } from "module/action";
 
 interface IMovieList {
   list: MovieDetailResponseType[];
@@ -11,6 +11,8 @@ interface IMovieList {
 interface MovieState {
   movies: IMovieList;
   error: string | null;
+  searchQuery: string;
+  searchResult: MovieDetailResponseType[];
 }
 
 const initialState: MovieState = {
@@ -19,32 +21,54 @@ const initialState: MovieState = {
     page: 1,
     totalPages: 0,
   },
+  searchQuery: "",
+  searchResult: [],
   error: null,
 };
 
 export const movieSlice = createSlice({
   name: "movie",
   initialState,
-  reducers: {},
+  reducers: {
+    searchQueryChange: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getMovieList.fulfilled, (state, action: PayloadAction<MovieListResPonseType>) => {
         const { movies } = state;
-        state.error = null;
         movies.list = action.payload.results;
         movies.page = action.payload.page;
         movies.totalPages = action.payload.total_pages;
+        state.error = null;
       })
       .addCase(getMovieList.rejected, (state, action) => {
         state.error = action.payload?.errorMessage!;
       })
-      .addCase(loadMoreMovieList.fulfilled, (state, action: PayloadAction<MovieListResPonseType>) => {
+      .addCase(getMoreMovieList.fulfilled, (state, action: PayloadAction<MovieListResPonseType>) => {
         const { movies } = state;
         movies.list = [...movies.list, ...action.payload.results];
         movies.page = action.payload.page;
         movies.totalPages = action.payload.total_pages;
+        state.error = null;
+      })
+      .addCase(getMoreMovieList.rejected, (state, action) => {
+        state.error = action.payload?.errorMessage!;
+      })
+      .addCase(
+        getSearchMovieList.fulfilled,
+        (state, action: PayloadAction<MovieListResPonseType | { results: [] }>) => {
+          state.searchResult = action.payload.results;
+          state.error = null;
+        }
+      )
+      .addCase(getSearchMovieList.rejected, (state, action) => {
+        state.error = action.payload?.errorMessage!;
       });
   },
 });
+
+export const { searchQueryChange } = movieSlice.actions;
 
 export const movieReducer = movieSlice.reducer;

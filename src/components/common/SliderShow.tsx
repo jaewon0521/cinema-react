@@ -26,10 +26,9 @@ const SliderShow = ({ imageList }: Props) => {
   return (
     <div css={slider}>
       <Carousel showStatus={false} showThumbs={false} autoPlay={true} infiniteLoop={true} interval={4000}>
-        <Slide imageUrl={imageList[0].url} />
-        <Slide imageUrl={imageList[1].url} />
-        <Slide imageUrl={imageList[2].url} />
-        <Slide imageUrl={imageList[3].url} />
+        {imageList.map((image) => (
+          <Slide key={image.id} imageUrl={image.url} />
+        ))}
       </Carousel>
     </div>
   );

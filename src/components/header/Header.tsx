@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import logo from "assets/cinema-logo.svg";
 import { css, keyframes } from "@emotion/react";
 import media from "lib/styles/media";
@@ -11,6 +11,7 @@ import { getMovieList } from "module/action";
 import { changeMovieType } from "module/reducers/movieTypeSlice";
 import { useSelector } from "react-redux";
 import { MovieApiItemType } from "types/apiCategoryType";
+import SearchResult from "./SearchInput";
 
 interface headerListProps {
   header: headerType;
@@ -54,9 +55,12 @@ const Header = () => {
     setIsActive(!isActive);
   };
 
-  const handleCahngeMovieTypeUrl = (type: MovieApiItemType, name: string) => {
-    dispatch(changeMovieType({ type }));
-  };
+  const handleCahngeMovieTypeUrl = useCallback(
+    (type: MovieApiItemType, name: string) => {
+      dispatch(changeMovieType({ type }));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(getMovieList({ type, pageNumber: 1 }));
@@ -76,7 +80,7 @@ const Header = () => {
           {HEADER_LIST.map((header) => (
             <HeaderList key={header.id} activeType={type} header={header} changeType={handleCahngeMovieTypeUrl} />
           ))}
-          <input type="text" css={searchInput} placeholder="Search for a movie" />
+          <SearchResult />
         </ul>
       </div>
     </div>
@@ -244,27 +248,6 @@ const headerNav = (isActive: boolean) => css`
   css`
     transform: translate(0%) !important;
   `}
-`;
-
-const searchInput = css`
-  ${media.small} {
-    mask-repeat: 15px;
-  }
-  grid-area: search;
-  margin-top: 10px;
-  width: auto;
-  border: 1px solid ${palette.grey[100]};
-  padding: 5px;
-  height: 36px;
-  border-radius: 5px;
-  outline: none;
-  color: ${palette.grey[200]};
-  line-height: 36px;
-
-  &::placeholder {
-    color: ${palette.grey[100]};
-    font-size: 14px;
-  }
 `;
 
 export default Header;

@@ -75,4 +75,4 @@ const movieTitle = css`
   }
 `;
 
-export default MainContent;
+export default React.memo(MainContent);

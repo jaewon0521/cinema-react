@@ -93,6 +93,7 @@ const headerNavBar = css`
     li:first-of-type {
       mask-type: 50px;
     }
+
     li .header-list-name {
       font-size: 1rem;
     }

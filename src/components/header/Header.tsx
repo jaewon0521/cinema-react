@@ -14,14 +14,20 @@ import { MovieApiItemType } from "types/apiCategoryType";
 import SearchResult from "./SearchInput";
 import HeaderList from "./HeaderList";
 import ToggleMenuBar from "./ToggleMenuBar";
+import { useNavigate } from "react-router";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const { type } = useSelector((state: RootState) => state.movieType);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleToggleMenuClick = () => {
     setIsActive(!isActive);
+  };
+
+  const handleGoToHome = () => {
+    navigate("/");
   };
 
   const handleCahngeMovieTypeUrl = useCallback(
@@ -39,7 +45,7 @@ const Header = () => {
     <div css={wrapper}>
       <div css={headerBar}></div>
       <div css={headerNavBar}>
-        <div css={headerImage}>
+        <div css={headerImage} onClick={handleGoToHome}>
           <img src={logo} alt="로고" />
         </div>
         <div css={headerMenuToggle(isActive)} onClick={handleToggleMenuClick}>

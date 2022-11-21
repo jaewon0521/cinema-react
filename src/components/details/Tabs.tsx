@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
+import { TAB_LIST } from "lib/constants";
 import palette from "lib/palette";
 import React, { useState } from "react";
 
@@ -18,18 +19,11 @@ const Tabs = (props: Props) => {
   return (
     <div css={tabs}>
       <ol className="tab-list" onClick={handleChangeTabActive}>
-        <li id="overview" className={active === "overview" ? "tab-list-item is-active" : "tab-list-item"}>
-          overview
-        </li>
-        <li id="crew" className={active === "crew" ? "tab-list-item is-active" : "tab-list-item"}>
-          crew
-        </li>
-        <li id="media" className={active === "media" ? "tab-list-item is-active" : "tab-list-item"}>
-          media
-        </li>
-        <li id="reviews" className={active === "reviews" ? "tab-list-item is-active" : "tab-list-item"}>
-          reviews
-        </li>
+        {TAB_LIST.map((tab) => (
+          <li id={tab} className={active === tab ? "tab-list-item is-active" : "tab-list-item"}>
+            {tab}
+          </li>
+        ))}
       </ol>
       <div className="tab-content">content</div>
     </div>

@@ -5,6 +5,10 @@ import { css } from "@emotion/react";
 import media from "lib/styles/media";
 import Rating from "components/common/Rating";
 import Tabs from "components/details/Tabs";
+import Overview from "components/overview/Overview";
+import Crew from "components/crew/Crew";
+import Media from "components/media/Media";
+import Reviews from "components/reviews/Reviews";
 
 type Props = {};
 
@@ -32,7 +36,14 @@ const DetailsContent = (props: Props) => {
             <div className="rating">
               <Rating rating={6.5} totalStars={10} /> &nbsp; <span>6.5</span> <p>(200) reviews</p>
             </div>
-            <Tabs />
+            <Tabs
+              tabList={[
+                { title: "overview", component: <Overview /> },
+                { title: "crew", component: <Crew /> },
+                { title: "media", component: <Media /> },
+                { title: "reviews", component: <Reviews /> },
+              ]}
+            />
           </div>
         </div>
       </div>

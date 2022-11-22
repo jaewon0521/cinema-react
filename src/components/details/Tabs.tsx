@@ -4,11 +4,20 @@ import { css } from "@emotion/react";
 import { TAB_LIST } from "lib/constants";
 import palette from "lib/palette";
 import React, { useState } from "react";
+import TabList from "./TabList";
 
-type Props = {};
+type tabListType = {
+  title: string;
+  component: React.ReactNode;
+};
 
-const Tabs = (props: Props) => {
-  const [active, setActive] = useState("overview");
+type Props = {
+  tabList: tabListType[];
+};
+
+const Tabs = ({ tabList }: Props) => {
+  const [active, setActive] = useState(tabList[0].title);
+  const content = tabList.find((tab) => active === tab.title);
 
   const handleChangeTabActive = (e: React.MouseEvent<HTMLOListElement>) => {
     const target = e.target as HTMLElement;
@@ -19,13 +28,11 @@ const Tabs = (props: Props) => {
   return (
     <div css={tabs}>
       <ol className="tab-list" onClick={handleChangeTabActive}>
-        {TAB_LIST.map((tab) => (
-          <li id={tab} className={active === tab ? "tab-list-item is-active" : "tab-list-item"}>
-            {tab}
-          </li>
+        {tabList.map((tab, index) => (
+          <TabList key={`${tab.title}_${index}`} title={tab.title} active={active} />
         ))}
       </ol>
-      <div className="tab-content">content</div>
+      <div className="tab-content">{content?.component}</div>
     </div>
   );
 };

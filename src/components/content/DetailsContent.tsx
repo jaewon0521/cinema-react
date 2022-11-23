@@ -80,19 +80,6 @@ const wrapper = css`
 `;
 
 const movieDetails = css`
-  ${media.large} {
-    grid-template-areas: "movieImage" "movieBody";
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-
-  ${media.custom(375)} {
-    .movie-image {
-      width: 230px;
-      height: 450px;
-    }
-  }
-
   position: relative;
   z-index: 3;
   display: grid;
@@ -119,59 +106,23 @@ const movieDetails = css`
       background-size: cover;
     }
   }
+
+  ${media.large} {
+    grid-template-areas: "movieImage" "movieBody";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  ${media.custom(375)} {
+    .movie-image {
+      width: 230px;
+      height: 450px;
+    }
+  }
 `;
 
 const movieBody = css`
   grid-area: movieBody;
-
-  ${media.custom(600)} {
-    .movie-overview {
-      .title {
-        width: 348px;
-        font-size: 16px;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        hyphens: auto;
-        span {
-          display: flex !important;
-        }
-      }
-
-      .movie-genres {
-        text-align: left;
-        margin-bottom: 50px;
-
-        .genres {
-          display: inline-block;
-
-          li {
-            list-style: none;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #dd003f;
-          }
-        }
-      }
-    }
-
-    .rating {
-      display: block !important;
-
-      span {
-        color: #9aa9bb;
-        padding-top: 10px;
-        float: left !important;
-        margin-left: 3px !important;
-      }
-
-      p {
-        color: #dd003f;
-        float: left !important;
-        padding-top: 10px;
-      }
-    }
-  }
 
   .movie-overview {
     height: auto;
@@ -233,6 +184,55 @@ const movieBody = css`
         margin-left: 10px;
         line-height: 30px;
         font-size: 18px;
+      }
+    }
+  }
+
+  ${media.custom(600)} {
+    .movie-overview {
+      .title {
+        width: 348px;
+        font-size: 16px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+        span {
+          display: flex !important;
+        }
+      }
+
+      .movie-genres {
+        text-align: left;
+        margin-bottom: 50px;
+
+        .genres {
+          display: inline-block;
+
+          li {
+            list-style: none;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #dd003f;
+          }
+        }
+      }
+    }
+
+    .rating {
+      display: block !important;
+
+      span {
+        color: #9aa9bb;
+        padding-top: 10px;
+        float: left !important;
+        margin-left: 3px !important;
+      }
+
+      p {
+        color: #dd003f;
+        float: left !important;
+        padding-top: 10px;
       }
     }
   }

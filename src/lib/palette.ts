@@ -9,6 +9,7 @@ export const yellow = {
 
 export const blue = {
   "100": "#3498db",
+  "800": "#233a50",
 };
 
 export const grey = {

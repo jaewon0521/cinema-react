@@ -35,3 +35,5 @@ export const HEADER_LIST: HeaderListType[] = [
     type: API_TYPE.UPCOMING,
   },
 ];
+
+export const TAB_LIST = ["overview", "crew", "media", "reviews"] as const;

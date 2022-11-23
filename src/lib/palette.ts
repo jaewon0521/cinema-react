@@ -14,6 +14,7 @@ export const grey = {
   "100": "#9aa9bb",
   "200": "#9dbfaf",
   "300": "#bdbdbd",
+  "400": "#abb7c4",
 };
 
 export const black = {

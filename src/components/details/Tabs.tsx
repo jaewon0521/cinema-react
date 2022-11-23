@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { TAB_LIST } from "lib/constants";
+import media from "lib/styles/media";
 import palette from "lib/palette";
 import React, { useState } from "react";
 import TabList from "./TabList";
@@ -57,8 +57,24 @@ const tabs = css`
   }
 
   .is-active {
-    color: #dcf836;
-    border-bottom: 3px solid #dcf836;
+    color: ${palette.yellow[200]};
+    border-bottom: 3px solid ${palette.yellow[200]};
+  }
+
+  ${media.small} {
+    .tab-list {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    .tab-list-item {
+      display: block;
+      text-align: left;
+    }
+
+    .is-active {
+      border-bottom: none;
+    }
   }
 `;
 

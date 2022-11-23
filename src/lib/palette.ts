@@ -4,6 +4,7 @@ export const red = {
 
 export const yellow = {
   "100": "#ffbc0b",
+  "200": "#dcf836",
 };
 
 export const blue = {

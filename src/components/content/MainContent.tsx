@@ -6,14 +6,14 @@ import Grid from "../common/Grid";
 import Paginate from "../common/Paginate";
 import SliderShow from "../common/SliderShow";
 import randomFourImages from "lib/utils/randomFourImages";
-import { MovieDetailResponseType } from "types/apiResponseType";
+import { MovieListlResponseType } from "types/apiResponseType";
 import { useAppDispatch } from "module/store";
 import { getMovieList } from "module/action";
 import { MovieApiItemType } from "types/apiCategoryType";
 import { HEADER_LIST } from "lib/constants";
 
 type props = {
-  list: MovieDetailResponseType[];
+  list: MovieListlResponseType[];
   page: number;
   totalPages: number;
   movieType: MovieApiItemType;

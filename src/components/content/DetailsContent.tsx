@@ -7,7 +7,6 @@ import Rating from "components/common/Rating";
 import Tabs from "components/details/Tabs";
 import Overview from "components/details/overview/Overview";
 import Crew from "components/details/crew/Crew";
-import Media from "components/details/media/Media";
 import Reviews from "components/details/reviews/Reviews";
 import Spinner from "components/common/Spinner";
 import { useParams } from "react-router";
@@ -66,9 +65,8 @@ const DetailsContent = (props: Props) => {
             <Tabs
               tabList={[
                 { title: "주요정보", component: <Overview details={details} /> },
-                { title: "crew", component: <Crew details={details} /> },
-                { title: "미디어", component: <Media /> },
-                { title: "리뷰", component: <Reviews /> },
+                { title: "제작진", component: <Crew credits={details.credits} /> },
+                { title: "리뷰", component: <Reviews reviews={details.reviews} /> },
               ]}
             />
           </div>

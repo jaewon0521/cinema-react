@@ -81,5 +81,5 @@ export interface MovieImageResponseType {
 export interface MovieReviewsRsponseType {
   id: number;
   page: number;
-  results: { total_pages: number; total_results: number }[];
+  results: { author: string; content: string; total_pages: number; total_results: number }[];
 }

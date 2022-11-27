@@ -3,15 +3,15 @@
 import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
-import { movieDetailState } from "module/reducers/movieDetailsSlice";
 import { v4 as uuidv4 } from "uuid";
 import { IMAGE_URL } from "api/service";
+import { MovieCreditResponseType } from "types/apiResponseType";
 
 type Props = {
-  details: movieDetailState["details"];
+  credits: MovieCreditResponseType;
 };
 
-const Crew = ({ details }: Props) => {
+const Crew = ({ credits }: Props) => {
   return (
     <div css={cast}>
       <div className="div-title">제작진</div>
@@ -24,20 +24,20 @@ const Crew = ({ details }: Props) => {
             <th className="head">역할</th>
           </tr>
         </thead>
-        {details.credits.crew.map((data) => (
+        {credits.crew.map((crew) => (
           <tbody key={uuidv4()}>
             <tr>
               <td>
                 <img
-                  src={data.profile_path ? `${IMAGE_URL}${data.profile_path}` : "https://via.placeholder.com/50x80"}
+                  src={crew.profile_path ? `${IMAGE_URL}${crew.profile_path}` : "https://via.placeholder.com/50x80"}
                   alt=""
                   width="50px"
                   height="80px"
                 />
               </td>
-              <td>{data.name}</td>
-              <td>{data.department}</td>
-              <td>{data.job}</td>
+              <td>{crew.name}</td>
+              <td>{crew.department}</td>
+              <td>{crew.job}</td>
             </tr>
           </tbody>
         ))}

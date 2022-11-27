@@ -4,7 +4,7 @@ import {
   MovieDetailsResponseType,
   MovieImageResponseType,
   MovieListResPonseType,
-  MovieReviesRsponseType,
+  MovieReviewsRsponseType,
 } from "../types/apiResponseType";
 
 const REQUEST_URL = "https://api.themoviedb.org/3";
@@ -49,7 +49,7 @@ export const MOIVE_IMAGES_URL = async (id: number) => {
 };
 
 export const MOIVE_REVIWES_URL = async (id: number, page: number = 1) => {
-  const response = await axios.get<MovieReviesRsponseType>(
+  const response = await axios.get<MovieReviewsRsponseType>(
     `${REQUEST_URL}/movie/${id}/reviews?api_key=${API_KEY}&language=${REQUEST_LANGUAGE}&page=${page}`
   );
   return response.data;

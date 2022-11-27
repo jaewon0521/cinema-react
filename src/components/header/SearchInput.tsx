@@ -8,9 +8,11 @@ import { useAppDispatch } from "module/store";
 import { searchQueryChange } from "module/reducers/movieSlice";
 import { getSearchMovieList } from "module/action";
 
-type Props = {};
+type Props = {
+  disable: boolean;
+};
 
-const SearchResult = (props: Props) => {
+const SearchResult = ({ disable }: Props) => {
   const [searchText, setSearchText] = useState("");
   const dispatch = useAppDispatch();
 
@@ -36,6 +38,7 @@ const SearchResult = (props: Props) => {
       onChange={handleSearchChange}
       onKeyDown={handleKeyDownEnter}
       placeholder="Press Enter to search"
+      disabled={disable}
     />
   );
 };

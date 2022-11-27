@@ -3,12 +3,12 @@
 import React, { useMemo } from "react";
 import Grid from "components/common/Grid";
 import { css } from "@emotion/react";
-import { MovieDetailResponseType } from "types/apiResponseType";
+import { MovieListlResponseType } from "types/apiResponseType";
 import randomFourImages from "lib/utils/randomFourImages";
 import SliderShow from "components/common/SliderShow";
 
 type Props = {
-  list: MovieDetailResponseType[];
+  list: MovieListlResponseType[];
   keyWord: string;
 };
 

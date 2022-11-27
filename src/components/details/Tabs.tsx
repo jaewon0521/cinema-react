@@ -54,6 +54,7 @@ const tabs = css`
     color: ${palette.grey[400]};
     padding-bottom: 15px;
     margin-right: 50px;
+    cursor: pointer;
   }
 
   .is-active {

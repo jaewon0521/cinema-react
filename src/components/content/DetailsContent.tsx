@@ -1,47 +1,72 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { css } from "@emotion/react";
 import media from "lib/styles/media";
 import Rating from "components/common/Rating";
 import Tabs from "components/details/Tabs";
-import Overview from "components/overview/Overview";
-import Crew from "components/crew/Crew";
-import Media from "components/media/Media";
-import Reviews from "components/reviews/Reviews";
+import Overview from "components/details/overview/Overview";
+import Crew from "components/details/crew/Crew";
+import Reviews from "components/details/reviews/Reviews";
+import Spinner from "components/common/Spinner";
+import { useParams } from "react-router";
+import { RootState, useAppDispatch } from "module/store";
+import { getMovieDetails } from "module/action";
+import { useSelector } from "react-redux";
+import { IMAGE_URL } from "api/service";
+import { clearDetailsMovie } from "module/reducers/movieDetailsSlice";
 
 type Props = {};
 
 const DetailsContent = (props: Props) => {
+  const { id } = useParams();
+  const { details } = useSelector((state: RootState) => state.movieDetails);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getMovieDetails({ id: Number(id) }));
+
+    return () => {
+      dispatch(clearDetailsMovie());
+    };
+  }, [dispatch, id]);
+
+  if (!details.movieInfo) {
+    return <Spinner />;
+  }
+
   return (
     <div css={wrapper}>
-      <div className="movie-bg">1</div>
+      <div
+        className="movie-bg"
+        style={{ backgroundImage: `url(${IMAGE_URL}${details.movieInfo.backdrop_path})` }}
+      ></div>
       <div className="movie-overlay">1</div>
       <div css={movieDetails}>
         <div className="movie-image">
-          <img src="" alt="" />
+          <img src={`${IMAGE_URL}${details.movieInfo.poster_path}`} alt="포스터 이미지" />
         </div>
         <div css={movieBody}>
           <div className="movie-overview">
             <div className="title">
-              Avengers <span>2022-11-20</span>
+              {details.movieInfo.title} <span>{details.movieInfo.release_date} </span>
             </div>
             <div className="movie-genres">
               <ul className="genres">
-                <li>Action</li>
-                <li>Comedy</li>
-                <li>Sci-fi</li>
+                {details.movieInfo.genres.map((gener) => (
+                  <li key={gener.id}>{gener.name}</li>
+                ))}
               </ul>
             </div>
             <div className="rating">
-              <Rating rating={6.5} totalStars={10} /> &nbsp; <span>6.5</span> <p>(200) reviews</p>
+              <Rating rating={details.movieInfo.vote_average} totalStars={10} /> &nbsp;{" "}
+              <span>{details.movieInfo.vote_average}</span> <p>({details.movieInfo.vote_count}) 리뷰</p>
             </div>
             <Tabs
               tabList={[
-                { title: "overview", component: <Overview /> },
-                { title: "crew", component: <Crew /> },
-                { title: "media", component: <Media /> },
-                { title: "reviews", component: <Reviews /> },
+                { title: "주요정보", component: <Overview details={details} /> },
+                { title: "제작진", component: <Crew credits={details.credits} /> },
+                { title: "리뷰", component: <Reviews reviews={details.reviews} /> },
               ]}
             />
           </div>

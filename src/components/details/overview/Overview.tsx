@@ -3,47 +3,62 @@
 import React from "react";
 import { css } from "@emotion/react";
 import media from "lib/styles/media";
+import { movieDetailState } from "module/reducers/movieDetailsSlice";
+import { v4 as uuidv4 } from "uuid";
+import { IMAGE_URL } from "api/service";
 
-type Props = {};
+type Props = {
+  details: movieDetailState["details"];
+};
 
-const Overview = (props: Props) => {
+const Overview = ({ details }: Props) => {
   return (
     <div css={overview}>
       <div css={overviewColumn1}>
-        <div className="description">This is a description about the movie</div>
+        <div className="description">{details.movieInfo.overview}</div>
         <div className="cast">
-          <div className="div-title">Cast</div>
+          <div className="div-title">배우</div>
           <table>
-            <tbody>
-              <tr>
-                <td>
-                  <img src={"http://placehold.it/54x81"} alt="" />
-                </td>
-                <td>이름</td>
-                <td>배우</td>
-              </tr>
-            </tbody>
+            {details.credits.cast.map((data) => (
+              <tbody key={uuidv4()}>
+                <tr>
+                  <td>
+                    <img
+                      src={data.profile_path ? `${IMAGE_URL}${data.profile_path}` : "https://via.placeholder.com/50x80"}
+                      alt="배우 이미지"
+                      width="50px"
+                      height="80px"
+                    />
+                  </td>
+                  <td>{data.name}</td>
+                  <td>{data.character}</td>
+                </tr>
+              </tbody>
+            ))}
           </table>
         </div>
       </div>
       <div css={overviewColumn2}>
         <div className="overview-detail">
-          <h6>Production Companies</h6>
-          <div className="product-company">
-            <img src={"http://placehold.it/30x30"} alt="" />
-            <span>이름</span>
-          </div>
+          <h6>제작사</h6>
+          {details.movieInfo.production_companies.map((company) => (
+            <div className="product-company" key={uuidv4()}>
+              <img
+                src={company.logo_path ? `${IMAGE_URL}${company.logo_path}` : "https://via.placeholder.com/30x30"}
+                alt="제작사 로고"
+                width="30px"
+                height="30px"
+              />
+              <span>{company.name}</span>
+            </div>
+          ))}
         </div>
         <div className="overview-detail">
-          <h6>Language(s)</h6>
+          <h6>언어</h6>
           <p>
-            <a href="!#">언어</a>
-          </p>
-        </div>
-        <div className="overview-detail">
-          <h6>이름</h6>
-          <p>
-            <a href="!#">설명</a>
+            {details.movieInfo.spoken_languages.map((language) => (
+              <span key={language.name}>{language.name}</span>
+            ))}
           </p>
         </div>
       </div>
@@ -147,7 +162,7 @@ const overviewColumn2 = css`
       text-transform: none;
       line-height: 24px;
 
-      a {
+      span {
         color: #4280bf;
         text-decoration: none;
         padding-right: 5px;

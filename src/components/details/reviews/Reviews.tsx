@@ -3,22 +3,33 @@
 import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
+import { MovieReviewsRsponseType } from "types/apiResponseType";
+import { v4 as uuidv4 } from "uuid";
 
-type Props = {};
+type Props = {
+  reviews: MovieReviewsRsponseType;
+};
 
-const Reviews = (props: Props) => {
+// 현재 리뷰 API에 대해 데이터를 빈값으로 가지고 옴.
+const Reviews = ({ reviews }: Props) => {
   return (
-    <div css={reviews}>
-      <div className="div-title">Reviews 20</div>
-      <div className="reviews-content">
-        <h3>anonymous</h3>
-        <div>This was an awesome moive. I lobed every bit of it.</div>
-      </div>
+    <div css={reviewsWrapper}>
+      <div className="div-title">Reviews {reviews.results.length > 0 ? reviews.results.length : 0} </div>
+      {reviews.results.length ? (
+        reviews.results.map((review) => (
+          <div className="reviews-content" key={uuidv4()}>
+            <h3>{review.author}</h3>
+            <div>{review.content}</div>
+          </div>
+        ))
+      ) : (
+        <p>작성된 리뷰가 없습니다.</p>
+      )}
     </div>
   );
 };
 
-const reviews = css`
+const reviewsWrapper = css`
   .div-title {
     color: #fff;
     font-size: 15px;

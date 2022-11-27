@@ -1,18 +1,27 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { css } from "@emotion/react";
 import media from "lib/styles/media";
 import Rating from "components/common/Rating";
 import Tabs from "components/details/Tabs";
-import Overview from "components/overview/Overview";
-import Crew from "components/crew/Crew";
-import Media from "components/media/Media";
-import Reviews from "components/reviews/Reviews";
+import Overview from "components/details/overview/Overview";
+import Crew from "components/details/crew/Crew";
+import Media from "components/details/media/Media";
+import Reviews from "components/details/reviews/Reviews";
+import { useParams } from "react-router";
+import { useAppDispatch } from "module/store";
+import { getMovieDetails } from "module/action";
 
 type Props = {};
 
 const DetailsContent = (props: Props) => {
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getMovieDetails({ id: Number(id) }));
+  }, [dispatch, id]);
+
   return (
     <div css={wrapper}>
       <div className="movie-bg">1</div>

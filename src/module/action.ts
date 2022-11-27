@@ -1,5 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { MOIVE_API_URL, SEARCH_MOIVE_API_URL } from "api/service";
+import {
+  MOIVE_API_URL,
+  MOIVE_CREDITS_URL,
+  MOIVE_DETAILS_URL,
+  MOIVE_IMAGES_URL,
+  MOIVE_REVIWES_URL,
+  SEARCH_MOIVE_API_URL,
+} from "api/service";
 import { MovieListResPonseType } from "types/apiResponseType";
 import { AxiosError } from "axios";
 import { MovieApiItemType } from "types/apiCategoryType";
@@ -61,5 +68,19 @@ export const getSearchMovieList = createAsyncThunk<
   } catch (err) {
     const error = err as AxiosError;
     return rejectWithValue({ errorMessage: error.message });
+  }
+});
+
+export const getMovieDetails = createAsyncThunk(actionType.MOVIE_DETAILS, async ({ id }: { id: number }) => {
+  try {
+    const details = await MOIVE_DETAILS_URL(id);
+    const credits = await MOIVE_CREDITS_URL(id);
+    const images = await MOIVE_IMAGES_URL(id);
+    const reviews = await MOIVE_REVIWES_URL(id);
+
+    const res = await Promise.all([details, credits, images, reviews]).then((response) => response);
+    console.log(res);
+  } catch (err) {
+    return err;
   }
 });

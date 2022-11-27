@@ -15,7 +15,7 @@ type Props = {
 
 const GridList = ({ movie }: Props) => {
   const titleStr = formatTitle(movie.original_title);
-  console.log(titleStr, movie.original_title);
+
   return (
     <div>
       <LazyImage className={gridCell} src={`${IMAGE_URL}/${movie.poster_path}`}>

@@ -66,7 +66,7 @@ const DetailsContent = (props: Props) => {
             <Tabs
               tabList={[
                 { title: "주요정보", component: <Overview details={details} /> },
-                { title: "crew", component: <Crew /> },
+                { title: "crew", component: <Crew details={details} /> },
                 { title: "미디어", component: <Media /> },
                 { title: "리뷰", component: <Reviews /> },
               ]}

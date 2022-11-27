@@ -17,7 +17,7 @@ const Overview = ({ details }: Props) => {
       <div css={overviewColumn1}>
         <div className="description">{details.movieInfo.overview}</div>
         <div className="cast">
-          <div className="div-title">배우 / 제작진</div>
+          <div className="div-title">배우</div>
           <table>
             {details.credits.cast.map((data) => (
               <tbody key={uuidv4()}>

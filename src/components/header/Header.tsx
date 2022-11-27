@@ -15,11 +15,15 @@ import SearchResult from "./SearchInput";
 import HeaderList from "./HeaderList";
 import ToggleMenuBar from "./ToggleMenuBar";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
+  const [disableSearch, setDisableSearch] = useState(false);
   const { type } = useSelector((state: RootState) => state.movieType);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const dispatch = useAppDispatch();
 
   const handleToggleMenuClick = () => {
@@ -41,6 +45,14 @@ const Header = () => {
     dispatch(getMovieList({ type, pageNumber: 1 }));
   }, [dispatch, type]);
 
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setDisableSearch(true);
+    } else {
+      setDisableSearch(false);
+    }
+  }, [location]);
+
   return (
     <div css={wrapper}>
       <div css={headerBar}></div>
@@ -55,7 +67,7 @@ const Header = () => {
           {HEADER_LIST.map((header) => (
             <HeaderList key={header.id} activeType={type} header={header} changeType={handleCahngeMovieTypeUrl} />
           ))}
-          <SearchResult />
+          <SearchResult disable={disableSearch} />
         </ul>
       </div>
     </div>
@@ -213,6 +225,10 @@ const headerNav = (isActive: boolean) => css`
 
     i:hover {
       color: ${palette.blue[100]};
+    }
+
+    .disabled {
+      display: none;
     }
   }
 

@@ -1,3 +1,4 @@
+import { movieDetailState } from "./reducers/movieDetailsSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   MOIVE_API_URL,
@@ -71,16 +72,24 @@ export const getSearchMovieList = createAsyncThunk<
   }
 });
 
-export const getMovieDetails = createAsyncThunk(actionType.MOVIE_DETAILS, async ({ id }: { id: number }) => {
+interface GetMovieDetailsParam {
+  id: number;
+}
+
+export const getMovieDetails = createAsyncThunk<
+  movieDetailState["details"],
+  GetMovieDetailsParam,
+  { rejectValue: MyKnoewErrorType }
+>(actionType.MOVIE_DETAILS, async ({ id }, { rejectWithValue }) => {
   try {
-    const details = await MOIVE_DETAILS_URL(id);
+    const movieInfo = await MOIVE_DETAILS_URL(id);
     const credits = await MOIVE_CREDITS_URL(id);
     const images = await MOIVE_IMAGES_URL(id);
     const reviews = await MOIVE_REVIWES_URL(id);
 
-    const res = await Promise.all([details, credits, images, reviews]).then((response) => response);
-    console.log(res);
+    return { movieInfo, credits, images, reviews };
   } catch (err) {
-    return err;
+    const error = err as AxiosError;
+    return rejectWithValue({ errorMessage: error.message });
   }
 });

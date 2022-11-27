@@ -37,7 +37,9 @@ export interface MovieDetailsResponseType {
   poster_path: string;
   production_companies: { id: number; logo_path: string; name: string; origin_country: string }[];
   production_countries: { iso_3166_1: string; name: string }[];
+  spoken_languages: { iso_639_1: string; name: string }[];
   title: string;
+  release_date: string;
   vote_average: number;
   vote_count: number;
 }
@@ -76,7 +78,7 @@ export interface MovieImageResponseType {
   posters: any;
 }
 
-export interface MovieReviesRsponseType {
+export interface MovieReviewsRsponseType {
   id: number;
   page: number;
   results: { total_pages: number; total_results: number }[];

@@ -4,13 +4,13 @@ import React from "react";
 import { css } from "@emotion/react";
 import { IMAGE_URL } from "api/service";
 import palette from "lib/palette";
-import { MovieDetailResponseType } from "types/apiResponseType";
+import { MovieListlResponseType } from "types/apiResponseType";
 import LazyImage from "./LazyImage";
 import Rating from "./Rating";
 import { Link } from "react-router-dom";
 import formatTitle from "lib/utils/formatTitle";
 type Props = {
-  movie: MovieDetailResponseType;
+  movie: MovieListlResponseType;
 };
 
 const GridList = ({ movie }: Props) => {

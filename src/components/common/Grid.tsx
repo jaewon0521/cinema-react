@@ -3,11 +3,11 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { css } from "@emotion/react";
-import { MovieDetailResponseType } from "types/apiResponseType";
+import { MovieListlResponseType } from "types/apiResponseType";
 import GridList from "./GridList";
 
 type Props = {
-  movies: MovieDetailResponseType[];
+  movies: MovieListlResponseType[];
 };
 
 const Grid = ({ movies }: Props) => {

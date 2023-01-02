@@ -1,4 +1,4 @@
-# react-shop
+# react-
 
 <p align="center">
   <img src="https://img.shields.io/badge/react-v18.2.0-9cf?logo=react" alt="react" />

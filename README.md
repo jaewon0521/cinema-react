@@ -10,7 +10,7 @@
 
 ## 🚀 Demo
 
-React-Shop 주소 : https://funny-pastelito-2c6a70.netlify.app
+React-Shop 주소 : https://dmm14yodelcwm.cloudfront.net/
 
 ## ⚡️ Skills
 

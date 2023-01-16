@@ -12,7 +12,7 @@ type Props = {
   keyWord: string;
 };
 
-const SearchResult = ({ list, keyWord }: Props) => {
+const SearchResultContent = ({ list, keyWord }: Props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const randomImageList = useMemo(() => randomFourImages(list), []);
 
@@ -50,4 +50,4 @@ const movieTitle = css`
   }
 `;
 
-export default React.memo(SearchResult);
+export default React.memo(SearchResultContent);

@@ -9,7 +9,7 @@ import { RootState, useAppDispatch } from "module/store";
 import Spinner from "components/common/Spinner";
 import { getMoreMovieList } from "module/action";
 import useInfinityScroll from "hook/useInfinityScroll";
-import SearchResult from "components/SearchResult/SearchResult";
+import SearchResultContent from "components/content/SearchResultContent";
 
 const Main = () => {
   const { movies, searchResult, searchQuery, error } = useSelector((state: RootState) => state.movies);
@@ -32,7 +32,7 @@ const Main = () => {
   }
 
   if (error) {
-    return <div>오류인데요?</div>;
+    return <>{error}</>;
   }
 
   return (
@@ -41,7 +41,7 @@ const Main = () => {
         {searchResult.length === 0 ? (
           <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={type} />
         ) : (
-          <SearchResult list={searchResult} keyWord={searchQuery} />
+          <SearchResultContent list={searchResult} keyWord={searchQuery} />
         )}
         <div ref={$observerTarget}></div>
       </div>

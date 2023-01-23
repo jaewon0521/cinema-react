@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { css, keyframes } from "@emotion/react";
-import logo from "assets/cinema-logo.svg";
 import media from "lib/styles/media";
 import palette from "lib/palette";
 import { HEADER_LIST } from "lib/constants";
@@ -14,24 +13,18 @@ import { MovieApiItemType } from "types/apiCategoryType";
 import SearchResult from "./SearchInput";
 import HeaderList from "./HeaderList";
 import ToggleMenuBar from "./ToggleMenuBar";
-import { useNavigate } from "react-router";
 import { useLocation } from "react-router";
+import Logo from "./logo/Logo";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const [disableSearch, setDisableSearch] = useState(false);
   const { type } = useSelector((state: RootState) => state.movieType);
-  const navigate = useNavigate();
   const location = useLocation();
-
   const dispatch = useAppDispatch();
 
   const handleToggleMenuClick = () => {
     setIsActive(!isActive);
-  };
-
-  const handleGoToHome = () => {
-    navigate("/");
   };
 
   const handleCahngeMovieTypeUrl = useCallback(
@@ -57,18 +50,16 @@ const Header = () => {
     <div css={wrapper}>
       <div css={headerBar}></div>
       <div css={headerNavBar}>
-        <div css={headerImage} onClick={handleGoToHome}>
-          <img src={logo} alt="로고" />
-        </div>
-        <div css={headerMenuToggle(isActive)} onClick={handleToggleMenuClick}>
-          <ToggleMenuBar />
-        </div>
+        <Logo />
         <ul css={headerNav(isActive)}>
           {HEADER_LIST.map((header) => (
             <HeaderList key={header.id} activeType={type} header={header} changeType={handleCahngeMovieTypeUrl} />
           ))}
           <SearchResult disable={disableSearch} />
         </ul>
+        <div css={headerMenuToggle(isActive)} onClick={handleToggleMenuClick}>
+          <ToggleMenuBar />
+        </div>
       </div>
     </div>
   );
@@ -123,19 +114,6 @@ const headerNavBar = css`
   height: 50px;
   line-height: 50px;
   color: #9aa9bb;
-`;
-
-const headerImage = css`
-  grid-area: link;
-  width: 170px;
-  /* height: 170px; */
-  margin-left: 25px;
-  margin-top: -5px;
-
-  img {
-    width: 170px;
-    cursor: pointer;
-  }
 `;
 
 const headerMenuToggle = (isActive: boolean) => css`

@@ -8,7 +8,7 @@
 
 URL: ~~https://dmm14yodelcwm.cloudfront.net~~
 
-URL: https://63c514bce7317a215881d28f--fantastic-daffodil-acd994.netlify.app
+URL: https://develop--fantastic-daffodil-acd994.netlify.app
 
 ## ⚡️ Skills
 

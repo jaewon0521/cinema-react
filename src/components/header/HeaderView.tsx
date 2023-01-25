@@ -2,34 +2,27 @@
 
 import React from "react";
 import { css, keyframes } from "@emotion/react";
-import { MovieApiItemType } from "types/apiCategoryType";
-import { HEADER_LIST } from "lib/constants";
 import palette from "lib/palette";
 import media from "lib/styles/media";
 import Logo from "./logo/Logo";
-import HeaderList from "./HeaderList";
 import MenuBar from "./menuBar/MenuBar";
-import SearchInput from "./SearchInput";
+import SearchInput from "./searchInput/SearchInput";
+import NavMenuList from "./navMenuList/NavMenuList";
 
 type Props = {
   isActive: boolean;
-  disableSearch: boolean;
-  type: MovieApiItemType;
-  onChangeMovieType: (type: MovieApiItemType, name: string) => void;
   onMenuToggle: () => void;
 };
 
-const HeaderView = ({ isActive, type, disableSearch, onChangeMovieType, onMenuToggle }: Props) => {
+const HeaderView = ({ isActive, onMenuToggle }: Props) => {
   return (
     <div css={wrapper}>
       <div css={headerBar}></div>
       <div css={headerNavContainer}>
         <Logo />
         <ul css={headerNav(isActive)}>
-          {HEADER_LIST.map((header) => (
-            <HeaderList key={header.id} activeType={type} header={header} changeType={onChangeMovieType} />
-          ))}
-          <SearchInput disable={disableSearch} />
+          <NavMenuList />
+          <SearchInput />
         </ul>
         <MenuBar isActive={isActive} onMenuToggle={onMenuToggle} />
       </div>

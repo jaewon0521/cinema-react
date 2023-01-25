@@ -3,12 +3,12 @@
 import React from "react";
 import { css } from "@emotion/react";
 import media from "lib/styles/media";
-import { movieDetailState } from "module/reducers/movieDetailsSlice";
+import { MovieDetailState } from "module/reducers/movieDetailsSlice";
 import { v4 as uuidv4 } from "uuid";
 import { IMAGE_URL } from "api/service";
 
 type Props = {
-  details: movieDetailState["details"];
+  details: MovieDetailState[keyof MovieDetailState];
 };
 
 const Overview = ({ details }: Props) => {

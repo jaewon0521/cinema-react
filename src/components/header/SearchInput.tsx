@@ -12,7 +12,7 @@ type Props = {
   disable: boolean;
 };
 
-const SearchResult = ({ disable }: Props) => {
+const SearchInput = ({ disable }: Props) => {
   const [searchText, setSearchText] = useState("");
   const dispatch = useAppDispatch();
 
@@ -63,4 +63,4 @@ const searchInput = css`
     font-size: 14px;
   }
 `;
-export default React.memo(SearchResult);
+export default React.memo(SearchInput);

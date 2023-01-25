@@ -1,4 +1,4 @@
-import { movieDetailState } from "./reducers/movieDetailsSlice";
+import { MovieDetailState } from "./reducers/movieDetailsSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   MOIVE_API_URL,
@@ -77,7 +77,7 @@ interface GetMovieDetailsParam {
 }
 
 export const getMovieDetails = createAsyncThunk<
-  movieDetailState["details"],
+  MovieDetailState[keyof MovieDetailState],
   GetMovieDetailsParam,
   { rejectValue: MyKnoewErrorType }
 >(actionType.MOVIE_DETAILS, async ({ id }, { rejectWithValue }) => {

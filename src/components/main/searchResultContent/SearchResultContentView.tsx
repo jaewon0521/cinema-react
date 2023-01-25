@@ -1,21 +1,18 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useMemo } from "react";
-import Grid from "components/common/Grid";
 import { css } from "@emotion/react";
-import { MovieListlResponseType } from "types/apiResponseType";
-import randomFourImages from "lib/utils/randomFourImages";
+import Grid from "components/common/Grid";
 import SliderShow from "components/common/SliderShow";
+import React from "react";
+import { MovieListlResponseType } from "types/apiResponseType";
 
 type Props = {
-  list: MovieListlResponseType[];
+  randomImageList: { id: number; url: string }[];
   keyWord: string;
+  list: MovieListlResponseType[];
 };
 
-const SearchResultContent = ({ list, keyWord }: Props) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const randomImageList = useMemo(() => randomFourImages(list), []);
-
+const SearchResultContentView = ({ randomImageList, keyWord, list }: Props) => {
   return (
     <div>
       <SliderShow imageList={randomImageList} />
@@ -50,4 +47,4 @@ const movieTitle = css`
   }
 `;
 
-export default React.memo(SearchResultContent);
+export default SearchResultContentView;

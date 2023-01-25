@@ -7,29 +7,29 @@ import {
   MovieReviewsRsponseType,
 } from "types/apiResponseType";
 
-export interface movieDetailState {
+export type MovieDetailState = {
   details: {
     movieInfo: MovieDetailsResponseType;
     credits: MovieCreditResponseType;
     images: MovieImageResponseType;
     reviews: MovieReviewsRsponseType;
   };
-}
+};
 
 const initialState = {
   details: {},
-} as movieDetailState;
+} as MovieDetailState;
 
 export const movieDetailsSlice = createSlice({
   name: "movieDetails",
   initialState,
   reducers: {
     clearDetailsMovie: (state) => {
-      state.details = {} as movieDetailState["details"];
+      state.details = {} as MovieDetailState["details"];
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getMovieDetails.fulfilled, (state, action: PayloadAction<movieDetailState["details"]>) => {
+    builder.addCase(getMovieDetails.fulfilled, (state, action: PayloadAction<MovieDetailState["details"]>) => {
       state.details = action.payload;
     });
   },

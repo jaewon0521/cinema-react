@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { headerType } from "lib/constants";
 import { MovieApiItemType } from "types/apiCategoryType";
@@ -8,7 +10,7 @@ type Props = {
   changeType: (type: MovieApiItemType, name: string) => void;
 };
 
-const HeaderList = ({ header, changeType, activeType }: Props) => {
+const NavMenuListView = ({ header, changeType, activeType }: Props) => {
   return (
     <>
       <li
@@ -25,4 +27,4 @@ const HeaderList = ({ header, changeType, activeType }: Props) => {
   );
 };
 
-export default HeaderList;
+export default NavMenuListView;

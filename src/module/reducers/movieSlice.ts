@@ -33,6 +33,9 @@ export const movieSlice = createSlice({
     searchQueryChange: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
+    clearSearchResult: (state) => {
+      state.searchResult = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +72,6 @@ export const movieSlice = createSlice({
   },
 });
 
-export const { searchQueryChange } = movieSlice.actions;
+export const { searchQueryChange, clearSearchResult } = movieSlice.actions;
 
 export const movieReducer = movieSlice.reducer;

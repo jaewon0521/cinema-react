@@ -5,7 +5,7 @@ type Props = {
   title: string;
 };
 
-const TabList = ({ title, active }: Props) => {
+const TabListView = ({ title, active }: Props) => {
   return (
     <li key={title} id={title} className={active === title ? "tab-list-item is-active" : "tab-list-item"}>
       {title}
@@ -13,4 +13,4 @@ const TabList = ({ title, active }: Props) => {
   );
 };
 
-export default TabList;
+export default TabListView;

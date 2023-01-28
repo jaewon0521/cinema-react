@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import TabView from "./TabView";
 
-export type tabListType = {
+export type TabListType = {
   title: string;
   component: React.ReactNode;
 };
 
 type Props = {
-  tabElements: tabListType[];
+  tabList: TabListType[];
 };
 
-const Tab = ({ tabElements }: Props) => {
-  const [active, setActive] = useState(tabElements[0].title);
-  const content = tabElements.find((tab) => active === tab.title)!;
+const Tab = ({ tabList }: Props) => {
+  const [active, setActive] = useState(tabList[0].title);
+  const content = tabList.find((tab) => active === tab.title)!;
 
   const handleChangeTabActive = (e: React.MouseEvent<HTMLOListElement>) => {
     const target = e.target as HTMLElement;
@@ -21,9 +21,9 @@ const Tab = ({ tabElements }: Props) => {
   };
 
   const viewProps = {
-    tabElements,
+    tabList,
     active,
-    currentContent: content,
+    content,
     onChangeTab: handleChangeTabActive,
   };
 

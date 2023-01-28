@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import DetailsContent from "components/details/DetailsView";
+import DetailsContent from "components/details/DetailsContent";
 import { clearDetailsMovie } from "module/reducers/movieDetailsSlice";
 import Spinner from "components/common/Spinner";
 import { useParams } from "react-router";
@@ -11,6 +11,7 @@ const Details = () => {
   const { id } = useParams();
   const { details } = useSelector((state: RootState) => state.movieDetails);
   const dispatch = useAppDispatch();
+  console.log(1);
 
   useEffect(() => {
     dispatch(getMovieDetails({ id: Number(id) }));

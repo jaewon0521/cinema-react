@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import { IMAGE_URL } from "api/service";
 import { MovieDetailState } from "module/reducers/movieDetailsSlice";
 import media from "lib/styles/media";
-import Tab from "components/details/tab/Tab";
+import Tabs from "components/details/Tabs";
 import Crew from "components/details/crew/Crew";
 import Reviews from "components/details/reviews/Reviews";
 import Overview from "components/details/overview/Overview";
@@ -17,7 +17,7 @@ type Props = {
   details: MovieDetailState[keyof MovieDetailState];
 };
 
-const DetailsView = ({ details }: Props) => {
+const DetailsContent = ({ details }: Props) => {
   return (
     <div css={wrapper}>
       <div
@@ -34,8 +34,8 @@ const DetailsView = ({ details }: Props) => {
             <TitleView title={details.movieInfo.title} releaseDate={details.movieInfo.release_date} />
             <GenresView genres={details.movieInfo.genres} />
             <DetailRatingView average={details.movieInfo.vote_average} voteCount={details.movieInfo.vote_count} />
-            <Tab
-              tabElements={[
+            <Tabs
+              tabList={[
                 { title: "주요정보", component: <Overview details={details} /> },
                 { title: "제작진", component: <Crew credits={details.credits} /> },
                 { title: "리뷰", component: <Reviews reviews={details.reviews} /> },
@@ -235,4 +235,4 @@ const movieBody = css`
   }
 `;
 
-export default DetailsView;
+export default DetailsContent;

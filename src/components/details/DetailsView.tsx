@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import { IMAGE_URL } from "api/service";
 import { MovieDetailState } from "module/reducers/movieDetailsSlice";
 import media from "lib/styles/media";
-import Tabs from "components/details/Tabs";
+import Tab from "components/details/tab/Tab";
 import Crew from "components/details/crew/Crew";
 import Reviews from "components/details/reviews/Reviews";
 import Overview from "components/details/overview/Overview";
@@ -34,8 +34,8 @@ const DetailsView = ({ details }: Props) => {
             <TitleView title={details.movieInfo.title} releaseDate={details.movieInfo.release_date} />
             <GenresView genres={details.movieInfo.genres} />
             <DetailRatingView average={details.movieInfo.vote_average} voteCount={details.movieInfo.vote_count} />
-            <Tabs
-              tabList={[
+            <Tab
+              tabElements={[
                 { title: "주요정보", component: <Overview details={details} /> },
                 { title: "제작진", component: <Crew credits={details.credits} /> },
                 { title: "리뷰", component: <Reviews reviews={details.reviews} /> },

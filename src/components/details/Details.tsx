@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import DetailsContent from "components/details/DetailsContent";
 import { clearDetailsMovie } from "module/reducers/movieDetailsSlice";
 import Spinner from "components/common/Spinner";
 import { useParams } from "react-router";
 import { RootState, useAppDispatch } from "module/store";
 import { getMovieDetails } from "module/action";
 import { useSelector } from "react-redux";
-import DetailsView from "components/details/DetailsView";
 
 const Details = () => {
   const { id } = useParams();
@@ -28,7 +28,7 @@ const Details = () => {
     details,
   };
 
-  return <DetailsView {...viewProps} />;
+  return <DetailsContent {...viewProps} />;
 };
 
 export default Details;

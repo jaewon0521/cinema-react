@@ -1,33 +1,23 @@
 /** @jsxImportSource @emotion/react */
 
+import React from "react";
 import { css } from "@emotion/react";
 import media from "lib/styles/media";
 import palette from "lib/palette";
-import React, { useState } from "react";
-import TabList from "./TabList";
-
-type tabListType = {
-  title: string;
-  component: React.ReactNode;
-};
+import TabList from "./TabListView";
+import { TabListType } from "./Tab";
 
 type Props = {
-  tabList: tabListType[];
+  tabList: TabListType[];
+  active: string;
+  content: TabListType;
+  onChangeTab: (e: React.MouseEvent<HTMLOListElement>) => void;
 };
 
-const Tabs = ({ tabList }: Props) => {
-  const [active, setActive] = useState(tabList[0].title);
-  const content = tabList.find((tab) => active === tab.title);
-
-  const handleChangeTabActive = (e: React.MouseEvent<HTMLOListElement>) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName === "OL") return;
-    setActive(target.id);
-  };
-
+const Tabs = ({ tabList, active, content, onChangeTab }: Props) => {
   return (
     <div css={tabs}>
-      <ol className="tab-list" onClick={handleChangeTabActive}>
+      <ol className="tab-list" onClick={onChangeTab}>
         {tabList.map((tab, index) => (
           <TabList key={`${tab.title}_${index}`} title={tab.title} active={active} />
         ))}

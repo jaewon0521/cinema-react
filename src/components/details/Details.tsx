@@ -11,6 +11,7 @@ const Details = () => {
   const { id } = useParams();
   const { details } = useSelector((state: RootState) => state.movieDetails);
   const dispatch = useAppDispatch();
+  console.log(1);
 
   useEffect(() => {
     dispatch(getMovieDetails({ id: Number(id) }));

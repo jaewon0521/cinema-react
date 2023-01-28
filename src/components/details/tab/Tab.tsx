@@ -6,8 +6,6 @@ export type tabListType = {
   component: React.ReactNode;
 };
 
-console.log(1);
-
 type Props = {
   tabElements: tabListType[];
 };

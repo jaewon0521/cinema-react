@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import { IMAGE_URL } from "api/service";
 import { MovieDetailState } from "module/reducers/movieDetailsSlice";
 import media from "lib/styles/media";
-import Tab from "components/details/Tabs";
+import Tab from "components/details/tab/Tab";
 import Crew from "components/details/crew/Crew";
 import Reviews from "components/details/reviews/Reviews";
 import Overview from "components/details/overview/Overview";
@@ -17,7 +17,7 @@ type Props = {
   details: MovieDetailState[keyof MovieDetailState];
 };
 
-const DetailsContent = ({ details }: Props) => {
+const DetailsView = ({ details }: Props) => {
   return (
     <div css={wrapper}>
       <div
@@ -235,4 +235,4 @@ const movieBody = css`
   }
 `;
 
-export default DetailsContent;
+export default DetailsView;

@@ -17,7 +17,7 @@ type Props = {
   details: MovieDetailState[keyof MovieDetailState];
 };
 
-const DetailsContent = ({ details }: Props) => {
+const DetailsView = ({ details }: Props) => {
   return (
     <div css={wrapper}>
       <div
@@ -235,4 +235,4 @@ const movieBody = css`
   }
 `;
 
-export default DetailsContent;
+export default DetailsView;

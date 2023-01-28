@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MovieDetailResponseType, MovieListResPonseType } from "types/apiResponseType";
+import { MovieListlResponseType, MovieListResPonseType } from "types/apiResponseType";
 import { getMovieList, getMoreMovieList, getSearchMovieList } from "module/action";
 
 interface IMovieList {
-  list: MovieDetailResponseType[];
+  list: MovieListlResponseType[];
   page: number;
   totalPages: number;
 }
@@ -12,7 +12,7 @@ interface MovieState {
   movies: IMovieList;
   error: string | null;
   searchQuery: string;
-  searchResult: MovieDetailResponseType[];
+  searchResult: MovieListlResponseType[];
 }
 
 const initialState: MovieState = {
@@ -32,6 +32,9 @@ export const movieSlice = createSlice({
   reducers: {
     searchQueryChange: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
+    },
+    clearSearchResult: (state) => {
+      state.searchResult = [];
     },
   },
   extraReducers: (builder) => {
@@ -69,6 +72,6 @@ export const movieSlice = createSlice({
   },
 });
 
-export const { searchQueryChange } = movieSlice.actions;
+export const { searchQueryChange, clearSearchResult } = movieSlice.actions;
 
 export const movieReducer = movieSlice.reducer;

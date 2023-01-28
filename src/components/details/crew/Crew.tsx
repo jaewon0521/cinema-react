@@ -3,32 +3,44 @@
 import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
+import { v4 as uuidv4 } from "uuid";
+import { IMAGE_URL } from "api/service";
+import { MovieCreditResponseType } from "types/apiResponseType";
 
-type Props = {};
+type Props = {
+  credits: MovieCreditResponseType;
+};
 
-const Crew = (props: Props) => {
+const Crew = ({ credits }: Props) => {
   return (
     <div css={cast}>
-      <div className="div-title">Crew</div>
+      <div className="div-title">제작진</div>
       <table>
         <thead>
           <tr>
             <th></th>
             <th></th>
-            <th className="head">Department</th>
-            <th className="head">Job</th>
+            <th className="head">부서</th>
+            <th className="head">역할</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="" alt="" />
-            </td>
-            <td>Alan Silvestri</td>
-            <td>Sound</td>
-            <td>Original Music Composer</td>
-          </tr>
-        </tbody>
+        {credits.crew.map((crew) => (
+          <tbody key={uuidv4()}>
+            <tr>
+              <td>
+                <img
+                  src={crew.profile_path ? `${IMAGE_URL}${crew.profile_path}` : "https://via.placeholder.com/50x80"}
+                  alt=""
+                  width="50px"
+                  height="80px"
+                />
+              </td>
+              <td>{crew.name}</td>
+              <td>{crew.department}</td>
+              <td>{crew.job}</td>
+            </tr>
+          </tbody>
+        ))}
       </table>
     </div>
   );
@@ -67,7 +79,7 @@ const cast = css`
     padding: 8px;
   }
 
-  td:first-child {
+  td:first-of-type {
     width: 70px;
     img {
       border-radius: 5px;
@@ -75,7 +87,7 @@ const cast = css`
     }
   }
 
-  td:nth-child(2) {
+  td:nth-of-type(2) {
     font-size: 16px;
     color: #4280bf;
   }

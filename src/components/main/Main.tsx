@@ -1,58 +1,34 @@
-/** @jsxImportSource @emotion/react */
-
-import React, { useCallback } from "react";
-import { css } from "@emotion/react";
-import MainContent from "components/content/MainContent";
-import palette from "lib/palette";
+import React from "react";
+import MainContent from "components/main/mainContent/MainContent";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "module/store";
+import { RootState } from "module/store";
 import Spinner from "components/common/Spinner";
-import { getMoreMovieList } from "module/action";
-import useInfinityScroll from "hook/useInfinityScroll";
-import SearchResult from "components/SearchResult/SearchResult";
+import SearchResultContent from "components/main/searchResultContent/SearchResultContent";
+import MainView from "./MainView";
 
 const Main = () => {
-  const { movies, searchResult, searchQuery, error } = useSelector((state: RootState) => state.movies);
-  const { type } = useSelector((state: RootState) => state.movieType);
-  const dispatch = useAppDispatch();
-
-  const fechData = useCallback(() => {
-    if (searchResult.length) return;
-
-    if (movies.page < movies.totalPages) {
-      let pageNumber = movies.page + 1;
-      dispatch(getMoreMovieList({ type, pageNumber }));
-    }
-  }, [movies, type, dispatch, searchResult]);
-
-  const $observerTarget = useInfinityScroll(fechData);
+  const { movies, error, searchResult } = useSelector((state: RootState) => state.movies);
+  let Component;
 
   if (movies.list.length === 0) {
-    return <Spinner />;
+    Component = Spinner;
+  }
+
+  if (searchResult.length === 0) {
+    Component = MainContent;
+  } else {
+    Component = SearchResultContent;
   }
 
   if (error) {
-    return <div>오류인데요?</div>;
+    return <>{error}</>;
   }
 
-  return (
-    <>
-      <div css={wrapper}>
-        {searchResult.length === 0 ? (
-          <MainContent list={movies.list} page={movies.page} totalPages={movies.totalPages} movieType={type} />
-        ) : (
-          <SearchResult list={searchResult} keyWord={searchQuery} />
-        )}
-        <div ref={$observerTarget}></div>
-      </div>
-    </>
-  );
+  const viewProps = {
+    Component,
+  };
+
+  return <MainView {...viewProps} />;
 };
 
-const wrapper = css`
-  text-align: center;
-  background-color: ${palette.black[200]};
-  /* overflow-y: auto; */
-`;
-
-export default React.memo(Main);
+export default Main;

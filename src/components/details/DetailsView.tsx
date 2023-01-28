@@ -2,46 +2,43 @@
 
 import React from "react";
 import { css } from "@emotion/react";
+import { IMAGE_URL } from "api/service";
+import { MovieDetailState } from "module/reducers/movieDetailsSlice";
 import media from "lib/styles/media";
-import Rating from "components/common/Rating";
-import Tabs from "components/details/Tabs";
-import Overview from "components/overview/Overview";
-import Crew from "components/crew/Crew";
-import Media from "components/media/Media";
-import Reviews from "components/reviews/Reviews";
+import Tab from "components/details/tab/Tab";
+import Crew from "components/details/crew/Crew";
+import Reviews from "components/details/reviews/Reviews";
+import Overview from "components/details/overview/Overview";
+import DetailRatingView from "./detailRating/DetailRatingView";
+import GenresView from "./genres/GenresView";
+import TitleView from "./title/TitleView";
 
-type Props = {};
+type Props = {
+  details: MovieDetailState[keyof MovieDetailState];
+};
 
-const DetailsContent = (props: Props) => {
+const DetailsView = ({ details }: Props) => {
   return (
     <div css={wrapper}>
-      <div className="movie-bg">1</div>
-      <div className="movie-overlay">1</div>
+      <div
+        className="movie-bg"
+        style={{ backgroundImage: `url(${IMAGE_URL}${details.movieInfo.backdrop_path})` }}
+      ></div>
+      <div className="movie-overlay"></div>
       <div css={movieDetails}>
         <div className="movie-image">
-          <img src="" alt="" />
+          <img src={`${IMAGE_URL}${details.movieInfo.poster_path}`} alt="포스터 이미지" />
         </div>
         <div css={movieBody}>
           <div className="movie-overview">
-            <div className="title">
-              Avengers <span>2022-11-20</span>
-            </div>
-            <div className="movie-genres">
-              <ul className="genres">
-                <li>Action</li>
-                <li>Comedy</li>
-                <li>Sci-fi</li>
-              </ul>
-            </div>
-            <div className="rating">
-              <Rating rating={6.5} totalStars={10} /> &nbsp; <span>6.5</span> <p>(200) reviews</p>
-            </div>
-            <Tabs
-              tabList={[
-                { title: "overview", component: <Overview /> },
-                { title: "crew", component: <Crew /> },
-                { title: "media", component: <Media /> },
-                { title: "reviews", component: <Reviews /> },
+            <TitleView title={details.movieInfo.title} releaseDate={details.movieInfo.release_date} />
+            <GenresView genres={details.movieInfo.genres} />
+            <DetailRatingView average={details.movieInfo.vote_average} voteCount={details.movieInfo.vote_count} />
+            <Tab
+              tabElements={[
+                { title: "주요정보", component: <Overview details={details} /> },
+                { title: "제작진", component: <Crew credits={details.credits} /> },
+                { title: "리뷰", component: <Reviews reviews={details.reviews} /> },
               ]}
             />
           </div>
@@ -238,4 +235,4 @@ const movieBody = css`
   }
 `;
 
-export default DetailsContent;
+export default DetailsView;

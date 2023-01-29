@@ -5,7 +5,6 @@ import { css } from "@emotion/react";
 import { IMAGE_URL_W342 } from "api/service";
 import palette from "lib/palette";
 import { MovieListlResponseType } from "types/apiResponseType";
-import LazyImage from "./LazyImage";
 import Rating from "./Rating";
 import { Link } from "react-router-dom";
 import formatTitle from "lib/utils/formatTitle";

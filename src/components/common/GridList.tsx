@@ -2,7 +2,7 @@
 
 import React from "react";
 import { css } from "@emotion/react";
-import { IMAGE_URL } from "api/service";
+import { IMAGE_URL_W342 } from "api/service";
 import palette from "lib/palette";
 import { MovieListlResponseType } from "types/apiResponseType";
 import LazyImage from "./LazyImage";
@@ -18,7 +18,9 @@ const GridList = ({ movie }: Props) => {
 
   return (
     <div>
-      <LazyImage className={gridCell} src={`${IMAGE_URL}/${movie.poster_path}`}>
+      {/* <LazyImage className={gridCell} src={`${IMAGE_URL}/${movie.poster_path}`}> */}
+      <div css={gridCell}>
+        <img src={`${IMAGE_URL_W342}/${movie.poster_path}`} alt={movie.title} width="440" height="500" />
         <div className="grid-read-more">
           <Link to={`${movie.id}/${titleStr}/details`} className="grid-cell-button">
             Read More
@@ -31,7 +33,8 @@ const GridList = ({ movie }: Props) => {
             <div className="grid-vote-average">{movie.vote_average}</div>
           </div>
         </div>
-      </LazyImage>
+      </div>
+      {/* </LazyImage> */}
     </div>
   );
 };
@@ -45,14 +48,13 @@ const gridCell = css`
   width: 100%;
   border-radius: 4px;
   transition: all 0.5s;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
 
   .grid-read-more {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     display: none;
 
     .grid-cell-button {
@@ -76,6 +78,10 @@ const gridCell = css`
     transform: translateY(-3px) scale(1.1);
 
     .grid-read-more {
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, 50%);
       display: flex;
       background: rgba(49, 56, 64, 0.1);
       transition: all 0.3s ease-out;
@@ -113,4 +119,4 @@ const gridDetail = css`
   }
 `;
 
-export default GridList;
+export default React.memo(GridList);

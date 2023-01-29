@@ -11,7 +11,11 @@ const REQUEST_URL = "https://api.themoviedb.org/3";
 const REQUEST_LANGUAGE = "ko-KR";
 const API_KEY = process.env.REACT_APP_APP_THEMOVIEDB_KEY;
 
-export const IMAGE_URL = "https://image.tmdb.org/t/p/original";
+export const IMAGE_URL_ORIGIN = "https://image.tmdb.org/t/p/original";
+export const IMAGE_URL_W342 = "https://image.tmdb.org/t/p/w342";
+export const IMAGE_URL_W500 = "https://image.tmdb.org/t/p/w500";
+export const IMAGE_URL_W1280 = "https://image.tmdb.org/t/p/w1280";
+export const IMAGE_URL_W1920 = "https://image.tmdb.org/t/p/w1920";
 
 export const MOIVE_API_URL = async (type: string, page: number) => {
   const response = await axios.get<MovieListResPonseType>(

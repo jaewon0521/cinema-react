@@ -2,7 +2,7 @@
 
 import React from "react";
 import { css } from "@emotion/react";
-import { IMAGE_URL } from "api/service";
+import { IMAGE_URL_W1920, IMAGE_URL_W500 } from "api/service";
 import { MovieDetailState } from "module/reducers/movieDetailsSlice";
 import media from "lib/styles/media";
 import Tab from "components/details/tab/Tab";
@@ -22,12 +22,12 @@ const DetailsView = ({ details }: Props) => {
     <div css={wrapper}>
       <div
         className="movie-bg"
-        style={{ backgroundImage: `url(${IMAGE_URL}${details.movieInfo.backdrop_path})` }}
+        style={{ backgroundImage: `url(${IMAGE_URL_W1920}${details.movieInfo.backdrop_path})` }}
       ></div>
       <div className="movie-overlay"></div>
       <div css={movieDetails}>
         <div className="movie-image">
-          <img src={`${IMAGE_URL}${details.movieInfo.poster_path}`} alt="포스터 이미지" />
+          <img src={`${IMAGE_URL_W500}${details.movieInfo.poster_path}`} alt="포스터 이미지" />
         </div>
         <div css={movieBody}>
           <div className="movie-overview">

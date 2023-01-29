@@ -4,7 +4,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
 import { v4 as uuidv4 } from "uuid";
-import { IMAGE_URL } from "api/service";
+import { IMAGE_URL_ORIGIN } from "api/service";
 import { MovieCreditResponseType } from "types/apiResponseType";
 
 type Props = {
@@ -29,7 +29,9 @@ const Crew = ({ credits }: Props) => {
             <tr>
               <td>
                 <img
-                  src={crew.profile_path ? `${IMAGE_URL}${crew.profile_path}` : "https://via.placeholder.com/50x80"}
+                  src={
+                    crew.profile_path ? `${IMAGE_URL_ORIGIN}${crew.profile_path}` : "https://via.placeholder.com/50x80"
+                  }
                   alt=""
                   width="50px"
                   height="80px"

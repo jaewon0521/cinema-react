@@ -17,7 +17,7 @@ type Props = {
 const Slide = ({ imageUrl }: { imageUrl: string }) => {
   return (
     <div>
-      <img src={imageUrl} alt="슬라이드 이미지" />
+      <img src={imageUrl} alt="슬라이드 이미지" width="2400px" height="700px" />
     </div>
   );
 };

@@ -4,8 +4,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import media from "lib/styles/media";
 import { MovieDetailState } from "module/reducers/movieDetailsSlice";
-import { v4 as uuidv4 } from "uuid";
-import { IMAGE_URL_ORIGIN } from "api/service";
+import { IMAGE_URL_W185 } from "api/service";
 
 type Props = {
   details: MovieDetailState[keyof MovieDetailState];
@@ -19,14 +18,14 @@ const Overview = ({ details }: Props) => {
         <div className="cast">
           <div className="div-title">배우</div>
           <table>
-            {details.credits.cast.map((data) => (
-              <tbody key={uuidv4()}>
+            {details.credits.cast.map((data, idx) => (
+              <tbody key={idx}>
                 <tr>
                   <td>
                     <img
                       src={
                         data.profile_path
-                          ? `${IMAGE_URL_ORIGIN}${data.profile_path}`
+                          ? `${IMAGE_URL_W185}${data.profile_path}`
                           : "https://via.placeholder.com/50x80"
                       }
                       alt="배우 이미지"
@@ -45,12 +44,10 @@ const Overview = ({ details }: Props) => {
       <div css={overviewColumn2}>
         <div className="overview-detail">
           <h6>제작사</h6>
-          {details.movieInfo.production_companies.map((company) => (
-            <div className="product-company" key={uuidv4()}>
+          {details.movieInfo.production_companies.map((company, idx) => (
+            <div className="product-company" key={idx}>
               <img
-                src={
-                  company.logo_path ? `${IMAGE_URL_ORIGIN}${company.logo_path}` : "https://via.placeholder.com/30x30"
-                }
+                src={company.logo_path ? `${IMAGE_URL_W185}${company.logo_path}` : "https://via.placeholder.com/30x30"}
                 alt="제작사 로고"
                 width="30px"
                 height="30px"
@@ -62,8 +59,8 @@ const Overview = ({ details }: Props) => {
         <div className="overview-detail">
           <h6>언어</h6>
           <p>
-            {details.movieInfo.spoken_languages.map((language) => (
-              <span key={language.name}>{language.name}</span>
+            {details.movieInfo.spoken_languages.map((language, idx) => (
+              <span key={idx}>{language.name}</span>
             ))}
           </p>
         </div>

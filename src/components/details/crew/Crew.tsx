@@ -3,8 +3,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import palette from "lib/palette";
-import { v4 as uuidv4 } from "uuid";
-import { IMAGE_URL_ORIGIN } from "api/service";
+import { IMAGE_URL_W185 } from "api/service";
 import { MovieCreditResponseType } from "types/apiResponseType";
 
 type Props = {
@@ -24,13 +23,13 @@ const Crew = ({ credits }: Props) => {
             <th className="head">역할</th>
           </tr>
         </thead>
-        {credits.crew.map((crew) => (
-          <tbody key={uuidv4()}>
+        {credits.crew.map((crew, idx) => (
+          <tbody key={idx}>
             <tr>
               <td>
                 <img
                   src={
-                    crew.profile_path ? `${IMAGE_URL_ORIGIN}${crew.profile_path}` : "https://via.placeholder.com/50x80"
+                    crew.profile_path ? `${IMAGE_URL_W185}${crew.profile_path}` : "https://via.placeholder.com/50x80"
                   }
                   alt=""
                   width="50px"

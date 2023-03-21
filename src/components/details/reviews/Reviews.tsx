@@ -16,8 +16,8 @@ const Reviews = ({ reviews }: Props) => {
     <div css={reviewsWrapper}>
       <div className="div-title">Reviews {reviews.results.length > 0 ? reviews.results.length : 0} </div>
       {reviews.results.length ? (
-        reviews.results.map((review) => (
-          <div className="reviews-content" key={uuidv4()}>
+        reviews.results.map((review, idx) => (
+          <div className="reviews-content" key={idx}>
             <h3>{review.author}</h3>
             <div>{review.content}</div>
           </div>

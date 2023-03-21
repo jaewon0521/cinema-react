@@ -24,8 +24,8 @@ const Crew = ({ credits }: Props) => {
             <th className="head">역할</th>
           </tr>
         </thead>
-        {credits.crew.map((crew) => (
-          <tbody key={uuidv4()}>
+        {credits.crew.map((crew, idx) => (
+          <tbody key={idx}>
             <tr>
               <td>
                 <img

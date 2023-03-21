@@ -1,4 +1,3 @@
-import { MovieDetailState } from "./reducers/movieDetailsSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   MOIVE_API_URL,
@@ -12,6 +11,7 @@ import { MovieListResPonseType } from "types/apiResponseType";
 import { AxiosError } from "axios";
 import { MovieApiItemType } from "types/apiCategoryType";
 import { actionType } from "./types";
+import { MovieDetailState } from "./reducers/movieDetailsSlice";
 
 type GetMovieListType = {
   type: MovieApiItemType;
@@ -82,12 +82,14 @@ export const getMovieDetails = createAsyncThunk<
   { rejectValue: MyKnoewErrorType }
 >(actionType.MOVIE_DETAILS, async ({ id }, { rejectWithValue }) => {
   try {
-    const movieInfo = await MOIVE_DETAILS_URL(id);
-    const credits = await MOIVE_CREDITS_URL(id);
-    const images = await MOIVE_IMAGES_URL(id);
-    const reviews = await MOIVE_REVIWES_URL(id);
+    const [movieDetails, credits, images, reviews] = await Promise.all([
+      MOIVE_DETAILS_URL(id),
+      MOIVE_CREDITS_URL(id),
+      MOIVE_IMAGES_URL(id),
+      MOIVE_REVIWES_URL(id),
+    ]);
 
-    return { movieInfo, credits, images, reviews };
+    return { movieInfo: movieDetails, credits: credits, images: images, reviews: reviews };
   } catch (err) {
     const error = err as AxiosError;
     return rejectWithValue({ errorMessage: error.message });

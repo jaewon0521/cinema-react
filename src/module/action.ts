@@ -11,6 +11,7 @@ import { MovieListResPonseType } from "types/apiResponseType";
 import { AxiosError } from "axios";
 import { MovieApiItemType } from "types/apiCategoryType";
 import { actionType } from "./types";
+import { MovieDetailState } from "./reducers/movieDetailsSlice";
 
 type GetMovieListType = {
   type: MovieApiItemType;
@@ -75,21 +76,22 @@ interface GetMovieDetailsParam {
   id: number;
 }
 
-export const getMovieDetails = createAsyncThunk<any, GetMovieDetailsParam, { rejectValue: MyKnoewErrorType }>(
-  actionType.MOVIE_DETAILS,
-  async ({ id }, { rejectWithValue }) => {
-    try {
-      const [movieDetails, credits, images, reviews] = await Promise.all([
-        MOIVE_DETAILS_URL(id),
-        MOIVE_CREDITS_URL(id),
-        MOIVE_IMAGES_URL(id),
-        MOIVE_REVIWES_URL(id),
-      ]);
+export const getMovieDetails = createAsyncThunk<
+  MovieDetailState[keyof MovieDetailState],
+  GetMovieDetailsParam,
+  { rejectValue: MyKnoewErrorType }
+>(actionType.MOVIE_DETAILS, async ({ id }, { rejectWithValue }) => {
+  try {
+    const [movieDetails, credits, images, reviews] = await Promise.all([
+      MOIVE_DETAILS_URL(id),
+      MOIVE_CREDITS_URL(id),
+      MOIVE_IMAGES_URL(id),
+      MOIVE_REVIWES_URL(id),
+    ]);
 
-      return { movieInfo: movieDetails, credits: credits, images: images, reviews: reviews };
-    } catch (err) {
-      const error = err as AxiosError;
-      return rejectWithValue({ errorMessage: error.message });
-    }
+    return { movieInfo: movieDetails, credits: credits, images: images, reviews: reviews };
+  } catch (err) {
+    const error = err as AxiosError;
+    return rejectWithValue({ errorMessage: error.message });
   }
-);
+});

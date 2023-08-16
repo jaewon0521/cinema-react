@@ -72,7 +72,7 @@ const Overview = ({ details }: Props) => {
 const overview = css`
   display: grid;
   grid-template-columns: 66.667% 33.334%;
-  margin-top: 40px;
+  margin-top: 45px;
 
   ${media.medium} {
     grid-template-columns: 1fr;
